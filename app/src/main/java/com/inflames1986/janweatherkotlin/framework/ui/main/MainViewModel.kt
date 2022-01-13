@@ -1,4 +1,4 @@
-package com.inflames1986.janweatherkotlin.ui.main
+package com.inflames1986.janweatherkotlin.framework.ui.main
 
 import androidx.lifecycle.ViewModel
 

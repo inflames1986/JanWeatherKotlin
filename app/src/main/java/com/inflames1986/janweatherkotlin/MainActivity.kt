@@ -2,7 +2,7 @@ package com.inflames1986.janweatherkotlin
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.inflames1986.janweatherkotlin.ui.main.MainFragment
+import com.inflames1986.janweatherkotlin.framework.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
 
