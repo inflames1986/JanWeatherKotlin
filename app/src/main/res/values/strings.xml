@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">JanWeatherKotlin</string>
+    <string name="cityCoordinates">Координаты: </string>
 </resources>
