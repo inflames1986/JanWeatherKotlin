@@ -1,4 +1,4 @@
-package com.inflames1986.janweatherkotlin
+package com.inflames1986.janweatherkotlin.viewmodel
 
 import com.inflames1986.janweatherkotlin.model.entities.Weather
 

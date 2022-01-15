@@ -3,7 +3,7 @@
     <dimen name="title_text_size">18sp</dimen>
     <dimen name="film_name_margin_top">18dp</dimen>
     <dimen name="margin_Top">5dp</dimen>
-    <dimen name="city_name_margin_top">city_name_margin_top</dimen>
+    <dimen name="city_name_margin_top">16dp</dimen>
     <dimen name="temp_text_size">18sp</dimen>
     <dimen name="default_padding">18dp</dimen>
     <dimen name="default_padding_2">5dp</dimen>

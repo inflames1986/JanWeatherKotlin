@@ -1,4 +1,4 @@
-package com.inflames1986.janweatherkotlin.framework.ui.main
+package com.inflames1986.janweatherkotlin.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
-import com.inflames1986.janweatherkotlin.AppState
+import com.inflames1986.janweatherkotlin.viewmodel.AppState
 import com.inflames1986.janweatherkotlin.R
 import com.inflames1986.janweatherkotlin.databinding.MainFragmentBinding
 import com.inflames1986.janweatherkotlin.model.entities.Weather
+import com.inflames1986.janweatherkotlin.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
@@ -41,10 +42,10 @@ class MainFragment : Fragment() {
     private fun renderData(appState: AppState) = with(binding) {
         when (appState) {
             is AppState.Success -> {
-                val filmData = appState.weatherData
+                val weatherData = appState.weatherData
                 progressBar.visibility = View.GONE
                 weatherGroup.visibility = View.VISIBLE
-                setData(filmData)
+                setData(weatherData)
             }
             is AppState.Loading -> {
                 weatherGroup.visibility = View.INVISIBLE
@@ -64,11 +65,13 @@ class MainFragment : Fragment() {
     private fun setData(weatherData: Weather) = with(binding) {
         cityName.text = weatherData.city.city
         cityCoordinates.text = String.format(
-            getString(R.string.cityCoordinates),
-            weatherData.city.lat.toString(),
+            getString(R.string.cityCoordinates) + " " +
+            weatherData.city.lat.toString() + " " +
             weatherData.city.lon.toString()
         )
+        temperatureLabel.text = "Температура воздуха:"
         temperatureValue.text = weatherData.temperature.toString()
+        feelsLikeLabel.text = "Чувствуется как:"
         feelsLikeValue.text = weatherData.feelsLike.toString()
     }
 

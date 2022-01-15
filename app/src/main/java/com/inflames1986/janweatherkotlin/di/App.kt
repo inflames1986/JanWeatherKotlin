@@ -1,4 +1,4 @@
-package com.inflames1986.janweatherkotlin
+package com.inflames1986.janweatherkotlin.di
 
 import android.app.Application
 import com.inflames1986.janweatherkotlin.di.appModule

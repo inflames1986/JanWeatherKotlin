@@ -1,9 +1,8 @@
-package com.inflames1986.janweatherkotlin.framework.ui.main
+package com.inflames1986.janweatherkotlin.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.inflames1986.janweatherkotlin.AppState
 import com.inflames1986.janweatherkotlin.model.repository.Repository
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
