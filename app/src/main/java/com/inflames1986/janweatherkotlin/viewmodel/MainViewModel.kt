@@ -4,20 +4,31 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.inflames1986.janweatherkotlin.model.repository.Repository
+import java.lang.Thread.sleep
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
 
-    private val liveData = MutableLiveData<AppState>()
+    private val liveDataToObserve = MutableLiveData<AppState>()
 
-    fun getLiveData(): LiveData<AppState> = liveData
+    fun getLiveData(): LiveData<AppState> = liveDataToObserve
 
-    fun getWeather() = getDataFromLocalSource()
+    fun getWeatherFromLocalSourceRus() = getDataFromLocalSource(isRussian = true)
 
-    private fun getDataFromLocalSource() {
-        liveData.value = AppState.Loading
+    fun getWeatherFromLocalSourceWorld() = getDataFromLocalSource(isRussian = false)
+
+    fun getWeatherFromRemoteSource() = getDataFromLocalSource(isRussian = true)
+
+
+    private fun getDataFromLocalSource(isRussian: Boolean) {
+        liveDataToObserve.value = AppState.Loading
         Thread {
-            Thread.sleep(1000)
-            liveData.postValue(AppState.Success(repository.getWeatherFromLocalStorage()))
+            sleep(1000)
+            liveDataToObserve.postValue(
+                AppState.Success(
+                    if (isRussian) repository.getWeatherFromLocalStorageRus()
+                    else repository.getWeatherFromLocalStorageWorld()
+                )
+            )
         }.start()
     }
 }

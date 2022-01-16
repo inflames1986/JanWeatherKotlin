@@ -7,4 +7,10 @@
     <dimen name="temp_text_size">18sp</dimen>
     <dimen name="default_padding">18dp</dimen>
     <dimen name="default_padding_2">5dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="fab_icon_size">16dp</dimen>
+    <dimen name="recycler_item_padding">16dp</dimen>
+    <dimen name="recycler_item_text_size">16sp</dimen>
+    <dimen name="recycler_item_line_height">3dp</dimen>
+    <dimen name="recycler_item_line_margin_end">16dp</dimen>
 </resources>
