@@ -16,13 +16,13 @@ import com.inflames1986.janweatherkotlin.viewmodel.AppState
 import com.inflames1986.janweatherkotlin.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainFragment : Fragment() {
+class WeatherListFragment : Fragment() {
 
     private val viewModel: MainViewModel by viewModel() //делегирование инициализации viewModel в метод внутри Koin вместо onViewCreated
     private var _binding: FragmentWetherListBinding? = null
     private val binding get() = _binding!!
 
-    private val adapter = WetherListFragmentAdapter(object : OnItemViewClickListener {
+    private val adapter = WeatherListFragmentAdapter(object : OnItemViewClickListener {
         override fun onItemViewClick(weather: Weather) {
             val manager = activity?.supportFragmentManager
             if (manager != null) {
@@ -58,10 +58,10 @@ class MainFragment : Fragment() {
     private fun changeWeatherDataSet() {
         if (isDataSetRus) {
             viewModel.getWeatherFromLocalSourceWorld()
-            // binding.mainFragmentButton.setImageResource(R.drawable.ic_earth)
+            binding.fragmentWetherListButton.setImageResource(R.drawable.ic_baseline_blur_circular_24)
         } else {
             viewModel.getWeatherFromLocalSourceRus()
-            // binding.mainFragmentButton.setImageResource(R.drawable.ic_russia)
+            binding.fragmentWetherListButton.setImageResource(R.drawable.ic_baseline_blur_circular_24)
         }
         isDataSetRus = !isDataSetRus
     }
@@ -97,7 +97,7 @@ class MainFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance() = WeatherListFragment()
     }
 }
 

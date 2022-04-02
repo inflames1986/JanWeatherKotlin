@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.inflames1986.janweatherkotlin.R
 import com.inflames1986.janweatherkotlin.model.entities.Weather
 
-class WetherListFragmentAdapter(private var onItemViewClickListener: OnItemViewClickListener?):  RecyclerView.Adapter<WetherListFragmentAdapter.MainViewHolder>() {
+/// TODO: Улучшить данный класс, сделать как универсальный, разобраться доконца в работе 
+
+class WeatherListFragmentAdapter(private var onItemViewClickListener: OnItemViewClickListener?):  RecyclerView.Adapter<WeatherListFragmentAdapter.MainViewHolder>() {
 
     private var weatherData: List<Weather> = listOf()
 
@@ -23,7 +25,7 @@ class WetherListFragmentAdapter(private var onItemViewClickListener: OnItemViewC
     ): MainViewHolder {
         return MainViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_recycler_cities, parent, false) as View
+                .inflate(R.layout.fragment_wether_list_recycler_item, parent, false) as View
         )
     }
 
@@ -38,7 +40,7 @@ class WetherListFragmentAdapter(private var onItemViewClickListener: OnItemViewC
     inner class MainViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(weather: Weather) {
-            itemView.findViewById<TextView>(R.id.mainFragmentRecyclerItemTextView).text = weather.city.city
+            itemView.findViewById<TextView>(R.id.FragmentWetherListRecyclerItemTextView).text = weather.city.city
             itemView.setOnClickListener {
                 Toast.makeText(
                     itemView.context,

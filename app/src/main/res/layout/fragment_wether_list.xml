@@ -24,6 +24,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:maxImageSize="@dimen/fab_icon_size"
+        app:tint="@null"
         android:contentDescription="@string/set" />
 
     <FrameLayout
