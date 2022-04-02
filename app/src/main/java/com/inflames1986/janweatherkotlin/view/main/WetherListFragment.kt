@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.inflames1986.janweatherkotlin.R
-import com.inflames1986.janweatherkotlin.databinding.FragmentMainBinding
+import com.inflames1986.janweatherkotlin.databinding.FragmentWetherListBinding
 import com.inflames1986.janweatherkotlin.model.entities.Weather
 import com.inflames1986.janweatherkotlin.view.details.DetailsFragment
 import com.inflames1986.janweatherkotlin.viewmodel.AppState
@@ -19,10 +19,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainFragment : Fragment() {
 
     private val viewModel: MainViewModel by viewModel() //делегирование инициализации viewModel в метод внутри Koin вместо onViewCreated
-    private var _binding: FragmentMainBinding? = null
+    private var _binding: FragmentWetherListBinding? = null
     private val binding get() = _binding!!
 
-    private val adapter = MainFragmentAdapter(object : OnItemViewClickListener {
+    private val adapter = WetherListFragmentAdapter(object : OnItemViewClickListener {
         override fun onItemViewClick(weather: Weather) {
             val manager = activity?.supportFragmentManager
             if (manager != null) {
@@ -41,15 +41,15 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        _binding = FragmentWetherListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.mainFragmentRecyclerView.adapter = adapter
-        binding.mainFragmentButton.setOnClickListener { changeWeatherDataSet() }
+        binding.fragmentWetherListRecyclerView.adapter = adapter
+        binding.fragmentWetherListButton.setOnClickListener { changeWeatherDataSet() }
         val observer = Observer<AppState> { renderData(it) }
         viewModel.getLiveData().observe(viewLifecycleOwner, observer)
         viewModel.getWeatherFromLocalSourceRus()
@@ -69,19 +69,19 @@ class MainFragment : Fragment() {
     private fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Success -> {
-                binding.mainFragmentLoadingLayout.visibility = View.GONE
-                binding.mainFragmentRecyclerView.isVisible = true
+                binding.fragmentWetherListLoadingLayout.visibility = View.GONE
+                binding.fragmentWetherListRecyclerView.isVisible = true
                 adapter.setWeather(appState.weatherData)
             }
             is AppState.Loading -> {
-                binding.mainFragmentLoadingLayout.visibility = View.VISIBLE
-                binding.mainFragmentRecyclerView.isVisible = false
+                binding.fragmentWetherListLoadingLayout.visibility = View.VISIBLE
+                binding.fragmentWetherListRecyclerView.isVisible = false
             }
             is AppState.Error -> {
-                binding.mainFragmentLoadingLayout.visibility = View.GONE
+                binding.fragmentWetherListLoadingLayout.visibility = View.GONE
                 Snackbar
                     .make(
-                        binding.mainFragmentButton,
+                        binding.fragmentWetherListButton,
                         getString(R.string.error),
                         Snackbar.LENGTH_INDEFINITE
                     )

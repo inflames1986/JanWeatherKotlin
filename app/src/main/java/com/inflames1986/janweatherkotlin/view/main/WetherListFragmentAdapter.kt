@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.inflames1986.janweatherkotlin.R
 import com.inflames1986.janweatherkotlin.model.entities.Weather
 
-class MainFragmentAdapter(private var onItemViewClickListener: OnItemViewClickListener?):  RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>() {
+class WetherListFragmentAdapter(private var onItemViewClickListener: OnItemViewClickListener?):  RecyclerView.Adapter<WetherListFragmentAdapter.MainViewHolder>() {
 
     private var weatherData: List<Weather> = listOf()
 

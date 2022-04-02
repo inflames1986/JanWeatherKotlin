@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/mainFragmentRecyclerView"
+        android:id="@+id/fragmentWetherListRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -16,17 +16,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/mainFragmentButton"
+        android:id="@+id/fragmentWetherListButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_baseline_blur_circular_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:maxImageSize="@dimen/fab_icon_size"
         android:contentDescription="@string/set" />
 
     <FrameLayout
-        android:id="@+id/mainFragmentLoadingLayout"
+        android:id="@+id/fragmentWetherListLoadingLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
