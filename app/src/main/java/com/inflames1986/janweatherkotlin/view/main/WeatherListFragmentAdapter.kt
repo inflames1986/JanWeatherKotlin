@@ -11,7 +11,7 @@ import com.inflames1986.janweatherkotlin.model.entities.Weather
 
 /// TODO: Улучшить данный класс, сделать как универсальный, разобраться доконца в работе 
 
-class WeatherListFragmentAdapter(private var onItemViewClickListener: OnItemViewClickListener?):  RecyclerView.Adapter<WeatherListFragmentAdapter.MainViewHolder>() {
+class WeatherListFragmentAdapter(private var onItemViewClickListener: OnItemListClickListener?):  RecyclerView.Adapter<WeatherListFragmentAdapter.MainViewHolder>() {
 
     private var weatherData: List<Weather> = listOf()
 
@@ -49,7 +49,7 @@ class WeatherListFragmentAdapter(private var onItemViewClickListener: OnItemView
                 ).show()
             }
             itemView.setOnClickListener {
-                onItemViewClickListener?.onItemViewClick(weather)
+                onItemViewClickListener?.onItemListClick(weather)
             }
 
         }

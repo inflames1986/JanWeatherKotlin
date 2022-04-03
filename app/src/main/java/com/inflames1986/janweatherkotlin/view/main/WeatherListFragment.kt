@@ -22,8 +22,8 @@ class WeatherListFragment : Fragment() {
     private var _binding: FragmentWetherListBinding? = null
     private val binding get() = _binding!!
 
-    private val adapter = WeatherListFragmentAdapter(object : OnItemViewClickListener {
-        override fun onItemViewClick(weather: Weather) {
+    private val adapter = WeatherListFragmentAdapter(object : OnItemListClickListener {
+        override fun onItemListClick(weather: Weather) {
             val manager = activity?.supportFragmentManager
             if (manager != null) {
                 val bundle = Bundle()
@@ -101,6 +101,6 @@ class WeatherListFragment : Fragment() {
     }
 }
 
-interface OnItemViewClickListener {
-    fun onItemViewClick(weather: Weather)
+interface OnItemListClickListener {
+    fun onItemListClick(weather: Weather)
 }
