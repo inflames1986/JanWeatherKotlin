@@ -25,7 +25,7 @@ class WeatherListFragment : Fragment() {
     private val adapter = WeatherListFragmentAdapter(object : OnItemListClickListener {
         override fun onItemListClick(weather: Weather) {
             val manager = activity?.supportFragmentManager
-            if (manager != null) {
+            manager?.let {
                 val bundle = Bundle()
                 bundle.putParcelable(DetailsFragment.BUNDLE_EXTRA, weather)
                 manager.beginTransaction()

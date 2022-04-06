@@ -4,17 +4,12 @@ import com.inflames1986.janweatherkotlin.model.entities.Weather
 import com.inflames1986.janweatherkotlin.model.entities.getRussianCities
 import com.inflames1986.janweatherkotlin.model.entities.getWorldCities
 
-class RepositoryImpl: Repository {
-    override fun getWeatherFromServer(): Weather {
-        return Weather()
-    }
+class RepositoryImpl : Repository {
+    override fun getWeatherFromServer() = Weather()
 
-    override fun getWeatherFromLocalStorageRus(): List<Weather> {
-        return getRussianCities()
-    }
+    override fun getWeatherFromLocalStorageRus() = getRussianCities()
 
-    override fun getWeatherFromLocalStorageWorld(): List<Weather> {
-        return getWorldCities()
-    }
+    override fun getWeatherFromLocalStorageWorld() = getWorldCities()
+
 
 }

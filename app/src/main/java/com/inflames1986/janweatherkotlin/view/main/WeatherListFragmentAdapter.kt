@@ -9,9 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.inflames1986.janweatherkotlin.R
 import com.inflames1986.janweatherkotlin.model.entities.Weather
 
-/// TODO: Улучшить данный класс, сделать как универсальный, разобраться доконца в работе 
-
-class WeatherListFragmentAdapter(private var onItemViewClickListener: OnItemListClickListener?):  RecyclerView.Adapter<WeatherListFragmentAdapter.MainViewHolder>() {
+class WeatherListFragmentAdapter(private var onItemViewClickListener: OnItemListClickListener?) :
+    RecyclerView.Adapter<WeatherListFragmentAdapter.MainViewHolder>() {
 
     private var weatherData: List<Weather> = listOf()
 
@@ -20,8 +19,9 @@ class WeatherListFragmentAdapter(private var onItemViewClickListener: OnItemList
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
     ): MainViewHolder {
         return MainViewHolder(
             LayoutInflater.from(parent.context)
@@ -40,18 +40,20 @@ class WeatherListFragmentAdapter(private var onItemViewClickListener: OnItemList
     inner class MainViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(weather: Weather) {
-            itemView.findViewById<TextView>(R.id.FragmentWetherListRecyclerItemTextView).text = weather.city.city
-            itemView.setOnClickListener {
-                Toast.makeText(
-                    itemView.context,
-                    weather.city.city,
-                    Toast.LENGTH_LONG
-                ).show()
+            with(itemView) {
+                findViewById<TextView>(R.id.FragmentWetherListRecyclerItemTextView).text =
+                    weather.city.city
+                setOnClickListener {
+                    Toast.makeText(
+                        itemView.context,
+                        weather.city.city,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+                setOnClickListener {
+                    onItemViewClickListener?.onItemListClick(weather)
+                }
             }
-            itemView.setOnClickListener {
-                onItemViewClickListener?.onItemListClick(weather)
-            }
-
         }
     }
 

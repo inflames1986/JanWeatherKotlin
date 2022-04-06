@@ -26,14 +26,17 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val weather = arguments?.getParcelable<Weather>(BUNDLE_EXTRA)
-        if (weather != null) {
+        weather?.let {
             val city = weather.city
-            binding.cityName.text = city.city
-            binding.cityCoordinates.text = "${getString(R.string.city_coordinates)} ${city.lat} ${city.lon}"
-            binding.temperatureLabel.text = "Температура воздуха:"
-            binding.temperatureValue.text = weather.temperature.toString()
-            binding.feelsLikeLabel.text = "Чувствуется как:"
-            binding.feelsLikeValue.text = weather.feelsLike.toString()
+            with (binding) {
+               cityName.apply {text = city.city}
+               cityCoordinates.apply {text =
+                    "${getString(R.string.city_coordinates)} ${city.lat} ${city.lon}"}
+                temperatureLabel.apply {text = "Температура воздуха:"}
+                temperatureValue.apply {text = weather.temperature.toString()}
+                feelsLikeLabel.apply {text = "Чувствуется как:"}
+                feelsLikeValue.apply {text = weather.feelsLike.toString()}
+            }
         }
     }
 
