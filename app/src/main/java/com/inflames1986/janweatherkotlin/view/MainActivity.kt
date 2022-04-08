@@ -19,13 +19,4 @@ class MainActivity : AppCompatActivity() {
                 .commitNow()
         }
     }
-
-    fun Snackbar.myFun(stringRes: Int) {
-        make(
-            fragmentWetherListButton,
-            getString(stringRes),
-            Snackbar.LENGTH_INDEFINITE
-        )
-            .show()
-    }
 }

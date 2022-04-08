@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast.LENGTH_LONG
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -14,6 +15,7 @@ import com.inflames1986.janweatherkotlin.model.entities.Weather
 import com.inflames1986.janweatherkotlin.view.details.DetailsFragment
 import com.inflames1986.janweatherkotlin.viewmodel.AppState
 import com.inflames1986.janweatherkotlin.viewmodel.MainViewModel
+import kotlinx.android.synthetic.main.fragment_wether_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class WeatherListFragment : Fragment() {
@@ -72,6 +74,7 @@ class WeatherListFragment : Fragment() {
                 binding.fragmentWetherListLoadingLayout.visibility = View.GONE
                 binding.fragmentWetherListRecyclerView.isVisible = true
                 adapter.setWeather(appState.weatherData)
+                binding.root.myOwnView("Success", LENGTH_LONG)
             }
             is AppState.Loading -> {
                 binding.fragmentWetherListLoadingLayout.visibility = View.VISIBLE
@@ -88,7 +91,17 @@ class WeatherListFragment : Fragment() {
                     .setAction(getString(R.string.reload)) { viewModel.getWeatherFromLocalSourceRus() }
                     .show()
             }
+
         }
+    }
+
+    fun View.myOwnView(stringRes: String, length: Int) {
+        Snackbar.make(
+            this,
+            stringRes,
+            length
+        )
+            .show()
     }
 
     override fun onDestroy() {
