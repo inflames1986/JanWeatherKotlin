@@ -1,9 +1,12 @@
 package com.inflames1986.janweatherkotlin.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.snackbar.Snackbar.make
 import com.inflames1986.janweatherkotlin.R
 import com.inflames1986.janweatherkotlin.view.main.WeatherListFragment
+import kotlinx.android.synthetic.main.fragment_wether_list.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,5 +18,14 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.container, WeatherListFragment.newInstance())
                 .commitNow()
         }
+    }
+
+    fun Snackbar.myFun(stringRes: Int) {
+        make(
+            fragmentWetherListButton,
+            getString(stringRes),
+            Snackbar.LENGTH_INDEFINITE
+        )
+            .show()
     }
 }
