@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -72,6 +73,7 @@ class WeatherListFragment : Fragment() {
                 binding.fragmentWetherListLoadingLayout.visibility = View.GONE
                 binding.fragmentWetherListRecyclerView.isVisible = true
                 adapter.setWeather(appState.weatherData)
+                binding.root.myOwnView("Success", Toast.LENGTH_LONG)
             }
             is AppState.Loading -> {
                 binding.fragmentWetherListLoadingLayout.visibility = View.VISIBLE
@@ -88,7 +90,17 @@ class WeatherListFragment : Fragment() {
                     .setAction(getString(R.string.reload)) { viewModel.getWeatherFromLocalSourceRus() }
                     .show()
             }
+
         }
+    }
+
+    fun View.myOwnView(stringRes: String, length: Int) {
+        Snackbar.make(
+            this,
+            stringRes,
+            length
+        )
+            .show()
     }
 
     override fun onDestroy() {
