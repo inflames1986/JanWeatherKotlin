@@ -5,4 +5,6 @@
     <string name="city_coordinates">Координаты:</string>
     <string name="error">Error</string>
     <string name="reload">Reload</string>
+    <string name="https_geekbrains_ru">https://geekbrains.ru/</string>
+    <string name="bnt_ok">ok</string>
 </resources>
