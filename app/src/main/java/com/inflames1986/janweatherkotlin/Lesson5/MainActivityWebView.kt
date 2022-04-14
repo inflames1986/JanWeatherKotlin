@@ -55,6 +55,7 @@ class MainActivityWebView : AppCompatActivity() {
                     "utf-8",
                     null
                 )
+                binding.webView.settings.javaScriptEnabled = true
             }
             val handlerMainUI1 = Handler(mainLooper)
             val handlerMainUI2 = Handler(Looper.getMainLooper())
@@ -75,9 +76,6 @@ class MainActivityWebView : AppCompatActivity() {
                     "utf-8",
                     null
                 )
-            }
-            handlerCurrent1.post {
-                //binding.webView.loadUrl(url.path) // FIXME открыть на месте
             }
 
             httpsURLConnection.disconnect()
