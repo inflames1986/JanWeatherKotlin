@@ -12,10 +12,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.inflames1986.janweatherkotlin.R
 import com.inflames1986.janweatherkotlin.databinding.FragmentWetherListBinding
 import com.inflames1986.janweatherkotlin.model.entities.Weather
+import com.inflames1986.janweatherkotlin.utils.KEY_BUNDLE_WEATHER
 import com.inflames1986.janweatherkotlin.view.details.DetailsFragment
 import com.inflames1986.janweatherkotlin.viewmodel.AppState
 import com.inflames1986.janweatherkotlin.viewmodel.MainViewModel
-import kotlinx.android.synthetic.main.fragment_wether_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class WeatherListFragment : Fragment() {
@@ -29,7 +29,7 @@ class WeatherListFragment : Fragment() {
             val manager = activity?.supportFragmentManager
             manager?.let {
                 val bundle = Bundle()
-                bundle.putParcelable(DetailsFragment.BUNDLE_EXTRA, weather)
+                bundle.putParcelable(KEY_BUNDLE_WEATHER, weather)
                 manager.beginTransaction()
                     .replace(R.id.container, DetailsFragment.newInstance(bundle))
                     .addToBackStack("")

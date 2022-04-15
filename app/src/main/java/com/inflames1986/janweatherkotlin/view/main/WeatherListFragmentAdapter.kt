@@ -42,11 +42,11 @@ class WeatherListFragmentAdapter(private var onItemViewClickListener: OnItemList
         fun bind(weather: Weather) {
             with(itemView) {
                 findViewById<TextView>(R.id.FragmentWetherListRecyclerItemTextView).text =
-                    weather.city.city
+                    weather.city.name
                 setOnClickListener {
                     Toast.makeText(
                         itemView.context,
-                        weather.city.city,
+                        weather.city.name,
                         Toast.LENGTH_LONG
                     ).show()
                 }
