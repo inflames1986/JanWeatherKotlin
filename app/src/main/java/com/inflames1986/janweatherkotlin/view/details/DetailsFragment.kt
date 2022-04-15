@@ -8,13 +8,16 @@ import androidx.fragment.app.Fragment
 import com.inflames1986.janweatherkotlin.R
 import com.inflames1986.janweatherkotlin.databinding.FragmentDetailsBinding
 import com.inflames1986.janweatherkotlin.model.entities.Weather
+import com.inflames1986.janweatherkotlin.model.repository.OnServerResponse
+import com.inflames1986.janweatherkotlin.model.repository.OnServerResponseListener
 import com.inflames1986.janweatherkotlin.model.repository.WeatherDTO
 import com.inflames1986.janweatherkotlin.model.repository.WeatherLoader
 import com.inflames1986.janweatherkotlin.utils.KEY_BUNDLE_WEATHER
+import com.inflames1986.janweatherkotlin.viewmodel.ResponseState
 import kotlinx.android.synthetic.main.fragment_wether_list.*
 
 
-class DetailsFragment : Fragment() {
+class DetailsFragment : Fragment(), OnServerResponse {
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
@@ -33,22 +36,21 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.getParcelable<Weather>(KEY_BUNDLE_WEATHER)?.let {
-            arguments?.getParcelable<Weather>(KEY_BUNDLE_WEATHER)!!
             currentCityName = it.city.name
-//            Thread{
-//            WeatherLoader(this@DetailsFragment,this@DetailsFragment).loadWeather(it.city.lat, it.city.lon)
-//            }.start()
+            Thread{
+            WeatherLoader(this@DetailsFragment).loadWeather(it.city.lat, it.city.lon)
+            }.start()
         }
 
     }
-    private fun renderData(weather: WeatherDTO) {
+    private fun renderData(weatherDTO: WeatherDTO) {
         with(binding) {
                 cityName.text = currentCityName
                 temperatureLabel.text = "Температура воздуха:"
-                temperatureValue.text = weather.factDTO.temperature.toString()
+                temperatureValue.text = weatherDTO.factDTO.temperature.toString()
                 feelsLikeLabel.text = "Чувствуется как:"
-                feelsLikeValue.text = weather.factDTO.feelsLike.toString()
-                cityCoordinates.text = "${weather.infoDTO.lat} ${weather.infoDTO.lon}"
+                feelsLikeValue.text = weatherDTO.factDTO.feelsLike.toString()
+                cityCoordinates.text = "${weatherDTO.infoDTO.lat} ${weatherDTO.infoDTO.lon}"
         }
     }
 
@@ -60,6 +62,10 @@ class DetailsFragment : Fragment() {
             fragment.arguments = bundle
             return fragment
         }
+    }
+
+    override fun onResponse(weatherDTO: WeatherDTO) {
+        renderData(weatherDTO)
     }
 }
 

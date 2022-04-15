@@ -1,6 +1,8 @@
 package com.inflames1986.janweatherkotlin.model.repository
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 
 data class WeatherDTO(
@@ -13,5 +15,5 @@ data class WeatherDTO(
     @SerializedName("now")
     val now: Int,
     @SerializedName("now_dt")
-    val nowDt: String
+    val nowDt: String,
 )
