@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import com.inflames1986.janweatherkotlin.R
 import com.inflames1986.janweatherkotlin.databinding.FragmentDetailsBinding
 import com.inflames1986.janweatherkotlin.model.entities.Weather
+import com.inflames1986.janweatherkotlin.model.repository.WeatherDTO
+import kotlinx.android.synthetic.main.fragment_wether_list.*
 
 
 class DetailsFragment : Fragment() {
@@ -23,24 +25,29 @@ class DetailsFragment : Fragment() {
         return binding.root
     }
 
+    lateinit var currentCityName: String
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val weather = arguments?.getParcelable<Weather>(BUNDLE_EXTRA)
-        weather?.let {
-            val city = weather.city
-            with (binding) {
-               cityName.apply {text = city.city}
-               cityCoordinates.apply {text =
-                    "${getString(R.string.city_coordinates)} ${city.lat} ${city.lon}"}
-                temperatureLabel.apply {text = "Температура воздуха:"}
-                temperatureValue.apply {text = weather.temperature.toString()}
-                feelsLikeLabel.apply {text = "Чувствуется как:"}
-                feelsLikeValue.apply {text = weather.feelsLike.toString()}
-            }
+
+        arguments?.getParcelable<Weather>(BUNDLE_EXTRA)?.let {
+            currentCityName = it.city.city
+            val weather:Weather = requireArguments().getParcelable<Weather>(BUNDLE_EXTRA)!!
+            renderData(weather)
+        }
+
+    }
+    private fun renderData(weather: Weather) {
+        with(binding) {
+                cityName.text = currentCityName
+                temperatureLabel.text = "Температура воздуха:"
+                temperatureValue.text = weather.temperature.toString()
+                feelsLikeLabel.text = "Чувствуется как:"
+                feelsLikeValue.text = weather.feelsLike.toString()
+                cityCoordinates.text = "${weather.city.lat} ${weather.city.lon}"
         }
     }
-
-    companion object {
+        companion object {
 
         const val BUNDLE_EXTRA = "weather"
 
