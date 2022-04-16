@@ -5,16 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.inflames1986.janweatherkotlin.R
 import com.inflames1986.janweatherkotlin.databinding.FragmentDetailsBinding
 import com.inflames1986.janweatherkotlin.model.entities.Weather
 import com.inflames1986.janweatherkotlin.model.repository.OnServerResponse
-import com.inflames1986.janweatherkotlin.model.repository.OnServerResponseListener
 import com.inflames1986.janweatherkotlin.model.repository.WeatherDTO
 import com.inflames1986.janweatherkotlin.model.repository.WeatherLoader
 import com.inflames1986.janweatherkotlin.utils.KEY_BUNDLE_WEATHER
-import com.inflames1986.janweatherkotlin.viewmodel.ResponseState
-import kotlinx.android.synthetic.main.fragment_wether_list.*
 
 
 class DetailsFragment : Fragment(), OnServerResponse {
@@ -37,25 +33,26 @@ class DetailsFragment : Fragment(), OnServerResponse {
 
         arguments?.getParcelable<Weather>(KEY_BUNDLE_WEATHER)?.let {
             currentCityName = it.city.name
-            Thread{
-            WeatherLoader(this@DetailsFragment).loadWeather(it.city.lat, it.city.lon)
+            Thread {
+                WeatherLoader(this@DetailsFragment).loadWeather(it.city.lat, it.city.lon)
             }.start()
         }
 
     }
+
     private fun renderData(weatherDTO: WeatherDTO) {
         with(binding) {
-                cityName.text = currentCityName
-                temperatureLabel.text = "Температура воздуха:"
-                temperatureValue.text = weatherDTO.factDTO.temperature.toString()
-                feelsLikeLabel.text = "Чувствуется как:"
-                feelsLikeValue.text = weatherDTO.factDTO.feelsLike.toString()
-                cityCoordinates.text = "${weatherDTO.infoDTO.lat} ${weatherDTO.infoDTO.lon}"
+            cityName.text = currentCityName
+            temperatureLabel.text = "Температура воздуха:"
+            temperatureValue.text = weatherDTO.factDTO.temperature.toString()
+            feelsLikeLabel.text = "Чувствуется как:"
+            feelsLikeValue.text = weatherDTO.factDTO.feelsLike.toString()
+            cityCoordinates.text = "${weatherDTO.infoDTO.lat} ${weatherDTO.infoDTO.lon}"
         }
     }
 
 
-        companion object {
+    companion object {
 
         fun newInstance(bundle: Bundle): DetailsFragment {
             val fragment = DetailsFragment()
