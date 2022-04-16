@@ -27,14 +27,14 @@ class WeatherLoader(
                     connectTimeout = 1000 // set под капотом
                     //val r= readTimeout // get под капотом
                     readTimeout = 1000 // set под капотом
-                    addRequestProperty(YANDEX_API_KEY, "ceae3d76-b634-4bfd-8ef5-25a327758ae9")
+                    addRequestProperty("X-Yandex-API-Key", "ceae3d76-b634-4bfd-8ef5-25a327758ae9")
                 }
 
 //val urlConnection: HttpsURLConnection = (uri.openConnection() as HttpsURLConnection).apply { для ленивых
 
             val headers = urlConnection.headerFields
-//            val responseCode = urlConnection.responseCode
-//            val responseMessage = urlConnection.responseMessage
+            val responseCode = urlConnection.responseCode
+            val responseMessage = urlConnection.responseMessage
 
 
             val buffer = BufferedReader(InputStreamReader(urlConnection.inputStream))
