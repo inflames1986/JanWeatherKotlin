@@ -45,26 +45,35 @@ class WeatherLoader(
                 val clientside = 400..499
                 val responseOk = 200..299
 
+                lateinit var myErr: ResponseState
+
                 when (responseCode) {
                     in serverside -> {
-                        // Toast.makeText(, msgResponse, Toast.LENGTH_LONG).show() //TODO: найти способ получить контекст :(
+                        myErr = ResponseState.Error1
+                        onServerResponse.onError(myErr)
+
+
                     }
                     in clientside -> {
-                        //  Toast.makeText(, msgResponse, Toast.LENGTH_LONG).show() //TODO: найти способ получить контекст :(
+                        myErr = ResponseState.Error2
+                        onServerResponse.onError(myErr)
+
                     }
                     in responseOk -> {
                         val buffer = BufferedReader(InputStreamReader(urlConnection.inputStream))
                         val weatherDTO: WeatherDTO = Gson().fromJson(buffer, WeatherDTO::class.java)
+
                         Handler(Looper.getMainLooper()).post {
+                            myErr = ResponseState.Error3
+                            onServerResponse.onError(myErr)
                             onServerResponseListener.onResponse(weatherDTO)
-                            onServerResponse.onError()
+
                         }
-                        // Toast.makeText(, msgResponse, Toast.LENGTH_LONG).show() //TODO: найти способ получить контекст :(
+
                     }
                 }
 
                 // TODO  HW "что-то пошло не так" Snackbar?
-
 
             } catch (e: JsonSyntaxException) {
 

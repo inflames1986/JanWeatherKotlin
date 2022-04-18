@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import com.inflames1986.janweatherkotlin.databinding.FragmentDetailsBinding
 import com.inflames1986.janweatherkotlin.model.entities.Weather
 import com.inflames1986.janweatherkotlin.model.repository.OnServerResponse
@@ -69,13 +70,13 @@ class DetailsFragment : Fragment(), OnServerResponse, OnServerResponseListener {
     override fun onError(error: ResponseState) {
             when (error) {
                 is ResponseState.Error1 -> {
-
+                    Snackbar.make(binding.cityName, "Error serverside :(", Snackbar.LENGTH_LONG).show()
                 }
                 is ResponseState.Error2 -> {
-
+                    Snackbar.make(binding.cityName, "Error clientside :(", Snackbar.LENGTH_LONG).show()
                 }
                 is ResponseState.Error3 -> {
-
+                    Snackbar.make(binding.cityName, "Response Ok!!!", Snackbar.LENGTH_LONG).show()
                 }
             }
         }

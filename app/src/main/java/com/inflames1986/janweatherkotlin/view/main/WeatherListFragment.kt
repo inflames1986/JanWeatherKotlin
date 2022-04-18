@@ -12,7 +12,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.inflames1986.janweatherkotlin.R
 import com.inflames1986.janweatherkotlin.databinding.FragmentWetherListBinding
 import com.inflames1986.janweatherkotlin.model.entities.Weather
-import com.inflames1986.janweatherkotlin.model.repository.WeatherLoader
 import com.inflames1986.janweatherkotlin.utils.KEY_BUNDLE_WEATHER
 import com.inflames1986.janweatherkotlin.view.details.DetailsFragment
 import com.inflames1986.janweatherkotlin.viewmodel.AppState
@@ -75,7 +74,7 @@ class WeatherListFragment : Fragment() {
                 binding.fragmentWetherListLoadingLayout.visibility = View.GONE
                 binding.fragmentWetherListRecyclerView.isVisible = true
                 adapter.setWeather(appState.weatherData)
-                binding.root.myOwnView("Success", LENGTH_LONG)
+                binding.root.myOwnView("Success", Snackbar.LENGTH_LONG)
             }
             is AppState.Loading -> {
                 binding.fragmentWetherListLoadingLayout.visibility = View.VISIBLE
