@@ -2,22 +2,22 @@ package com.inflames1986.janweatherkotlin.model.repository
 
 import android.os.Handler
 import android.os.Looper
-import android.widget.Toast
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import com.inflames1986.janweatherkotlin.BuildConfig
 import com.inflames1986.janweatherkotlin.utils.YANDEX_API_KEY
 import com.inflames1986.janweatherkotlin.utils.YANDEX_DOMAIN
 import com.inflames1986.janweatherkotlin.utils.YANDEX_PATH
+import com.inflames1986.janweatherkotlin.viewmodel.ResponseState
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 
 class WeatherLoader(
-    private val onServerResponseListener: OnServerResponse
+    private val onServerResponseListener: OnServerResponse,
+    private val onServerResponse: OnServerResponseListener
 ) {
-    lateinit var msgResponse: String
 
     fun loadWeather(lat: Double, lon: Double) {
         val urlText =
@@ -57,7 +57,7 @@ class WeatherLoader(
                         val weatherDTO: WeatherDTO = Gson().fromJson(buffer, WeatherDTO::class.java)
                         Handler(Looper.getMainLooper()).post {
                             onServerResponseListener.onResponse(weatherDTO)
-                            msgResponse = "Успешно"
+                            onServerResponse.onError()
                         }
                         // Toast.makeText(, msgResponse, Toast.LENGTH_LONG).show() //TODO: найти способ получить контекст :(
                     }

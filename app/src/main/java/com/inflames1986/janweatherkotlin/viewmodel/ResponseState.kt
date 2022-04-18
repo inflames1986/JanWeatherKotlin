@@ -4,8 +4,6 @@ import com.inflames1986.janweatherkotlin.model.entities.Weather
 
 sealed class ResponseState {
     object Error1:ResponseState()
-    data class Error2(val weatherList:List<Weather>):ResponseState(){
-        fun test(){}
-    }
-    data class Error3(val error:Throwable):ResponseState()
+    object Error2:ResponseState()
+    object Error3:ResponseState()
 }
