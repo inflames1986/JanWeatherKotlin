@@ -12,6 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.inflames1986.janweatherkotlin.R
 import com.inflames1986.janweatherkotlin.databinding.FragmentWetherListBinding
 import com.inflames1986.janweatherkotlin.model.entities.Weather
+import com.inflames1986.janweatherkotlin.model.repository.WeatherLoader
 import com.inflames1986.janweatherkotlin.utils.KEY_BUNDLE_WEATHER
 import com.inflames1986.janweatherkotlin.view.details.DetailsFragment
 import com.inflames1986.janweatherkotlin.viewmodel.AppState
@@ -86,7 +87,7 @@ class WeatherListFragment : Fragment() {
                     .make(
                         binding.fragmentWetherListButton,
                         getString(R.string.error),
-                        Snackbar.LENGTH_INDEFINITE
+                        Snackbar.LENGTH_LONG
                     )
                     .setAction(getString(R.string.reload)) { viewModel.getWeatherFromLocalSourceRus() }
                     .show()
