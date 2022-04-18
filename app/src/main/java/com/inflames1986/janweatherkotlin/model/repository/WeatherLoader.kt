@@ -33,10 +33,9 @@ class WeatherLoader(
                     readTimeout = 1000 // set под капотом
                     addRequestProperty(YANDEX_API_KEY, BuildConfig.WEATHER_API_KEY)
                 }
+
             try {
 
-                //val urlConnection: HttpsURLConnection = (uri.openConnection() as HttpsURLConnection).apply { для ленивых
-                Thread.sleep(500)
                 val headers = urlConnection.headerFields
                 val responseCode = urlConnection.responseCode
                 val responseMessage = urlConnection.responseMessage
@@ -51,7 +50,6 @@ class WeatherLoader(
                     in serverside -> {
                         myErr = ResponseState.Error1
                         onServerResponse.onError(myErr)
-
 
                     }
                     in clientside -> {
@@ -69,18 +67,14 @@ class WeatherLoader(
                             onServerResponseListener.onResponse(weatherDTO)
 
                         }
-
                     }
                 }
-
-                // TODO  HW "что-то пошло не так" Snackbar?
 
             } catch (e: JsonSyntaxException) {
 
             } finally {
                 urlConnection.disconnect()
             }
-            // поток закрывается
         }.start()
     }
 }
