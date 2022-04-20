@@ -33,7 +33,7 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.AIRPLANE_MODE" />
+                <action android:name="android.intent.action.CONNECTIVITY_ACTION" />
                 <action android:name="myaction" />
             </intent-filter>
         </receiver>
