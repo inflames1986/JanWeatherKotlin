@@ -19,8 +19,7 @@ import javax.net.ssl.HttpsURLConnection
 
 class DetailsService(
     val name: String = "",
-    private val onServerResponseListener: OnServerResponse,
-    private val onServerResponse: OnServerResponseListener
+
 ) : IntentService(name) {
 
     override fun onHandleIntent(intent: Intent?) {
@@ -52,38 +51,38 @@ class DetailsService(
             val responseCode = urlConnection.responseCode
             val responseMessage = urlConnection.responseMessage
 
-            try {
-
-                val serverside = 500..599
-                val clientside = 400..499
-                val responseOk = 200..299
-
-                lateinit var myErr: ResponseState
-
-                when (responseCode) {
-                    in serverside -> {
-                        myErr = ResponseState.Error1
-                        onServerResponse.onError(myErr)
-
-                    }
-                    in clientside -> {
-                        myErr = ResponseState.Error2
-                        onServerResponse.onError(myErr)
-
-                    }
-                    in responseOk -> {
-
-                        myErr = ResponseState.Error3
-                        onServerResponse.onError(myErr)
-                    }
-                }
-
-
-            } catch (e: JsonSyntaxException) {
-                //TODO обработчик как сделаю сервис + HardMode Андрея если буду успевать
-            } finally {
-                urlConnection.disconnect()
-            }
+//            try {
+//
+//                val serverside = 500..599
+//                val clientside = 400..499
+//                val responseOk = 200..299
+//
+//                lateinit var myErr: ResponseState
+//
+//                when (responseCode) {
+//                    in serverside -> {
+//                        myErr = ResponseState.Error1
+//                        onServerResponse.onError(myErr)
+//
+//                    }
+//                    in clientside -> {
+//                        myErr = ResponseState.Error2
+//                        onServerResponse.onError(myErr)
+//
+//                    }
+//                    in responseOk -> {
+//
+//                        myErr = ResponseState.Error3
+//                        onServerResponse.onError(myErr)
+//                    }
+//                }
+//
+//
+//            } catch (e: JsonSyntaxException) {
+//                //TODO обработчик как сделаю сервис + HardMode Андрея если буду успевать
+//            } finally {
+//                urlConnection.disconnect()
+//            }
 
             val message = Intent(KEY_WAVE_SERVICE_BROADCAST)
             message.putExtra(

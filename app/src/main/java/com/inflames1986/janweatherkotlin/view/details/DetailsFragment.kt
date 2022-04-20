@@ -3,6 +3,7 @@ package com.inflames1986.janweatherkotlin.view.details
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,8 +17,8 @@ import com.inflames1986.janweatherkotlin.model.repository.OnServerResponse
 import com.inflames1986.janweatherkotlin.model.repository.OnServerResponseListener
 import com.inflames1986.janweatherkotlin.dto.WeatherDTO
 import com.inflames1986.janweatherkotlin.model.repository.WeatherLoader
-import com.inflames1986.janweatherkotlin.utils.KEY_BUNDLE_SERVICE_BROADCAST_WEATHER
-import com.inflames1986.janweatherkotlin.utils.KEY_BUNDLE_WEATHER
+import com.inflames1986.janweatherkotlin.services.DetailsService
+import com.inflames1986.janweatherkotlin.utils.*
 import com.inflames1986.janweatherkotlin.viewmodel.ResponseState
 
 
@@ -55,11 +56,22 @@ class DetailsFragment : Fragment(), OnServerResponse, OnServerResponseListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
+            receiver,
+            IntentFilter(KEY_WAVE_SERVICE_BROADCAST)
+        )
+
         arguments?.getParcelable<Weather>(KEY_BUNDLE_WEATHER)?.let {
             currentCityName = it.city.name
-            Thread {
-                WeatherLoader(this@DetailsFragment, this@DetailsFragment).loadWeather(it.city.lat, it.city.lon)
-            }.start()
+
+            requireActivity().startService(
+                Intent(
+                    requireContext(),
+                    DetailsService::class.java
+                ).apply {
+                    putExtra(KEY_BUNDLE_LAT, it.city.lat)
+                    putExtra(KEY_BUNDLE_LON, it.city.lon)
+                })
         }
     }
 
