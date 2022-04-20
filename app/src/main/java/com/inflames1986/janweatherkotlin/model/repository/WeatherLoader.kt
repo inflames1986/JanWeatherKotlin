@@ -5,6 +5,7 @@ import android.os.Looper
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import com.inflames1986.janweatherkotlin.BuildConfig
+import com.inflames1986.janweatherkotlin.dto.WeatherDTO
 import com.inflames1986.janweatherkotlin.utils.YANDEX_API_KEY
 import com.inflames1986.janweatherkotlin.utils.YANDEX_DOMAIN
 import com.inflames1986.janweatherkotlin.utils.YANDEX_PATH

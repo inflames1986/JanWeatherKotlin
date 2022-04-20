@@ -1,7 +1,10 @@
-package com.inflames1986.janweatherkotlin.model.repository
+package com.inflames1986.janweatherkotlin.dto
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class PartDTO(
 
     @SerializedName("condition")
@@ -40,4 +43,4 @@ data class PartDTO(
     val windGust: Double,
     @SerializedName("wind_speed")
     val windSpeed: Double
-)
+):Parcelable

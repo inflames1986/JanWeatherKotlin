@@ -1,17 +1,22 @@
 package com.inflames1986.janweatherkotlin.view.details
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.snackbar.Snackbar
 import com.inflames1986.janweatherkotlin.databinding.FragmentDetailsBinding
 import com.inflames1986.janweatherkotlin.model.entities.Weather
 import com.inflames1986.janweatherkotlin.model.repository.OnServerResponse
 import com.inflames1986.janweatherkotlin.model.repository.OnServerResponseListener
-import com.inflames1986.janweatherkotlin.model.repository.WeatherDTO
+import com.inflames1986.janweatherkotlin.dto.WeatherDTO
 import com.inflames1986.janweatherkotlin.model.repository.WeatherLoader
+import com.inflames1986.janweatherkotlin.utils.KEY_BUNDLE_SERVICE_BROADCAST_WEATHER
 import com.inflames1986.janweatherkotlin.utils.KEY_BUNDLE_WEATHER
 import com.inflames1986.janweatherkotlin.viewmodel.ResponseState
 
@@ -20,6 +25,22 @@ class DetailsFragment : Fragment(), OnServerResponse, OnServerResponseListener {
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+        LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(receiver)
+    }
+
+    val receiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            intent?.let { intent ->
+                intent.getParcelableExtra<WeatherDTO>(KEY_BUNDLE_SERVICE_BROADCAST_WEATHER)?.let {
+                    onResponse(it)
+                }
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

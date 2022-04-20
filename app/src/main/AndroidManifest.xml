@@ -26,6 +26,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".services.DetailsService"/>
+        <receiver
+            android:name=".lesson6.MyBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.AIRPLANE_MODE" />
+                <action android:name="myaction" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

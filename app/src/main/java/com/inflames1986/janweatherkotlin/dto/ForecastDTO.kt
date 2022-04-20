@@ -1,8 +1,11 @@
-package com.inflames1986.janweatherkotlin.model.repository
+package com.inflames1986.janweatherkotlin.dto
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class ForecastDTO(
     @SerializedName("date")
     val date: String,
@@ -20,4 +23,4 @@ data class ForecastDTO(
     val sunset: String,
     @SerializedName("week")
     val week: Int
-)
+):Parcelable
