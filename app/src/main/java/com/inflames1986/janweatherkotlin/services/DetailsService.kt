@@ -50,46 +50,51 @@ class DetailsService(
             val headers = urlConnection.headerFields
             val responseCode = urlConnection.responseCode
             val responseMessage = urlConnection.responseMessage
+            var myErr: String? = " "
 
-//            try {
-//
-//                val serverside = 500..599
-//                val clientside = 400..499
-//                val responseOk = 200..299
-//
-//                lateinit var myErr: ResponseState
-//
-//                when (responseCode) {
-//                    in serverside -> {
-//                        myErr = ResponseState.Error1
-//                        onServerResponse.onError(myErr)
-//
-//                    }
-//                    in clientside -> {
-//                        myErr = ResponseState.Error2
-//                        onServerResponse.onError(myErr)
-//
-//                    }
-//                    in responseOk -> {
-//
-//                        myErr = ResponseState.Error3
-//                        onServerResponse.onError(myErr)
-//                    }
-//                }
-//
-//
-//            } catch (e: JsonSyntaxException) {
-//                //TODO обработчик как сделаю сервис + HardMode Андрея если буду успевать
-//            } finally {
-//                urlConnection.disconnect()
-//            }
+            try {
+
+                val serverside = 500..599
+                val clientside = 400..499
+                val responseOk = 200..299
+
+
+
+                when (responseCode) {
+                    in serverside -> {
+                        myErr = "Ошибка serverside"
+
+                    }
+                    in clientside -> {
+                        myErr = "Ошибка clientside"
+
+                    }
+                    in responseOk -> {
+
+                        myErr = "Успешно"
+                    }
+                }
+
+
+            } catch (e: JsonSyntaxException) {
+                //TODO обработчик как сделаю сервис + HardMode Андрея если буду успевать
+            } finally {
+                urlConnection.disconnect()
+            }
 
             val message = Intent(KEY_WAVE_SERVICE_BROADCAST)
             message.putExtra(
                 KEY_BUNDLE_SERVICE_BROADCAST_WEATHER, weatherDTO
             )
+
+            val messageErr = Intent(KEY_WAVE_ERROR_BROADCAST)
+            messageErr.putExtra(
+                KEY_ERROR_MESSAGE, myErr
+            )
+
             //sendBroadcast(message)
             LocalBroadcastManager.getInstance(this).sendBroadcast(message)
+            LocalBroadcastManager.getInstance(this).sendBroadcast(messageErr)
         }
     }
 }

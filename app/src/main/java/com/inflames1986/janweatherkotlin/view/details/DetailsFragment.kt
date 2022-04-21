@@ -43,6 +43,17 @@ class DetailsFragment : Fragment(), OnServerResponse, OnServerResponseListener {
         }
     }
 
+    lateinit var errMessage: String
+
+    val receiverErr = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            errMessage = intent?.getStringExtra(KEY_ERROR_MESSAGE).toString() //видимо ошибка в извлечении текста из интента
+            Snackbar.make(binding.cityName, errMessage, Snackbar.LENGTH_LONG).show()
+        }
+    }
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,6 +71,12 @@ class DetailsFragment : Fragment(), OnServerResponse, OnServerResponseListener {
             receiver,
             IntentFilter(KEY_WAVE_SERVICE_BROADCAST)
         )
+
+        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
+            receiverErr,
+            IntentFilter(KEY_WAVE_ERROR_BROADCAST)
+        )
+
 
         arguments?.getParcelable<Weather>(KEY_BUNDLE_WEATHER)?.let {
             currentCityName = it.city.name
@@ -103,13 +120,13 @@ class DetailsFragment : Fragment(), OnServerResponse, OnServerResponseListener {
     override fun onError(error: ResponseState) {
             when (error) {
                 is ResponseState.Error1 -> {
-                    Snackbar.make(binding.cityName, "Error serverside :(", Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(binding.cityName, errMessage, Snackbar.LENGTH_LONG).show()
                 }
                 is ResponseState.Error2 -> {
-                    Snackbar.make(binding.cityName, "Error clientside :(", Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(binding.cityName, errMessage, Snackbar.LENGTH_LONG).show()
                 }
                 is ResponseState.Error3 -> {
-                    Snackbar.make(binding.cityName, "Response Ok!!!", Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(binding.cityName, errMessage, Snackbar.LENGTH_LONG).show()
                 }
             }
         }

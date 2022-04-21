@@ -37,6 +37,15 @@
                 <action android:name="myaction" />
             </intent-filter>
         </receiver>
+        <receiver
+            android:name=".broadcastreceivers.MyErrorsBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.CONNECTIVITY_ACTION" />
+                <action android:name="myaction" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
