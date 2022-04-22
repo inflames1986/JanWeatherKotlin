@@ -6,13 +6,14 @@ import com.inflames1986.janweatherkotlin.model.entities.City
 import com.inflames1986.janweatherkotlin.model.entities.Weather
 import com.inflames1986.janweatherkotlin.model.repository.DetailsRepository
 import com.inflames1986.janweatherkotlin.model.repository.DetailsRepositoryOneOkHttpImpl
+import com.inflames1986.janweatherkotlin.model.repository.DetailsRepositoryRetrofit2Impl
 
 class DetailsViewModel(
     private val liveData: MutableLiveData<DetailsState> = MutableLiveData(),
-    private val repository: DetailsRepository = DetailsRepositoryOneOkHttpImpl()
+    //private val repository: DetailsRepository = DetailsRepositoryOneOkHttpImpl() // ---- > используем OkHttp
+    private val repository: DetailsRepository = DetailsRepositoryRetrofit2Impl()   // ---- > используем Retrofit2
 ) : ViewModel() {
 
-    private var repositoryOne: DetailsRepository = DetailsRepositoryOneOkHttpImpl()
 
     fun getLiveData() = liveData
 

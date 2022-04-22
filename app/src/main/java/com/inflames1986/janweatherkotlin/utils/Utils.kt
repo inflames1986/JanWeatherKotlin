@@ -13,12 +13,14 @@ const val YANDEX_API_KEY = "X-Yandex-API-Key"
 const val YANDEX_ENDPOINT = "v2/informers?"
 const val KEY_BUNDLE_LAT = "lat1"
 const val KEY_BUNDLE_LON = "lon1"
-const val KEY_BUNDLE_SERVICE_MESSAGE ="kbsm"
+const val KEY_BUNDLE_SERVICE_MESSAGE = "kbsm"
 const val KEY_BUNDLE_SERVICE_BROADCAST_WEATHER = "kbsbw"
 const val KEY_WAVE_SERVICE_BROADCAST = "kwsb"
 const val KEY_ERROR_SERVICE_MESSAGE = "kesm"
 const val KEY_ERROR_MESSAGE = "kem"
 const val KEY_WAVE_ERROR_BROADCAST = "kweb"
+const val LAT = "lat"
+const val LON = "lon"
 
 
 fun convertDtoToModel(weatherDTO: WeatherDTO): Weather {

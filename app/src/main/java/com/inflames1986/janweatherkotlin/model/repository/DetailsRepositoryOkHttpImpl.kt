@@ -4,7 +4,6 @@ import com.google.gson.Gson
 import com.inflames1986.janweatherkotlin.BuildConfig
 import com.inflames1986.janweatherkotlin.dto.WeatherDTO
 import com.inflames1986.janweatherkotlin.model.entities.City
-import com.inflames1986.janweatherkotlin.model.entities.Weather
 import com.inflames1986.janweatherkotlin.utils.YANDEX_API_KEY
 import com.inflames1986.janweatherkotlin.utils.YANDEX_DOMAIN
 import com.inflames1986.janweatherkotlin.utils.YANDEX_ENDPOINT
