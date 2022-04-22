@@ -47,8 +47,8 @@ class DetailsFragment : Fragment(), OnServerResponse, OnServerResponseListener {
 
     val receiverErr = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            errMessage = intent?.getStringExtra(KEY_ERROR_MESSAGE).toString() //видимо ошибка в извлечении текста из интента
-            Snackbar.make(binding.cityName, errMessage, Snackbar.LENGTH_LONG).show()
+            errMessage = intent?.getStringExtra(KEY_ERROR_MESSAGE).toString()
+            Snackbar.make(binding.cityName, errMessage, Snackbar.LENGTH_LONG).show() // в этом месте снэкбар отрабатывает один раз, на повторный падает с null pointer
         }
     }
 
