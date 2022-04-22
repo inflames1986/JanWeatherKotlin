@@ -6,6 +6,8 @@
     <string name="error">Error</string>
     <string name="reload">Reload</string>
     <string name="https_geekbrains_ru">https://geekbrains.ru/</string>
-    <string name="bnt_ok">ok</string>
+    <string name="bnt_ok">OK</string>
     <string name="access">Успешно</string>
+    <string name="temperature">Температура:</string>
+    <string name="feelsLikeLabelText">Чувствуется как:</string>
 </resources>
