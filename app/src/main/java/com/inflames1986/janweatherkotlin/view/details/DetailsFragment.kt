@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import coil.load
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.inflames1986.janweatherkotlin.R
 import com.inflames1986.janweatherkotlin.databinding.FragmentDetailsBinding
@@ -73,14 +75,14 @@ class DetailsFragment : Fragment() {
                     Snackbar.make(mainView, "Получилось", Snackbar.LENGTH_LONG)
                         .show()
 
-                    /*Glide.with(requireContext())
-                        .load("https://freepngimg.com/thumb/city/36275-3-city-hd.png")
-                        .into(headerIcon)*/
+//                    Glide.with(requireContext())
+//                        .load("https://freepngimg.com/thumb/city/36275-3-city-hd.png")
+//                        .into(headerCityIcon)
 
                     /* Picasso.get()?.load("https://freepngimg.com/thumb/city/36275-3-city-hd.png")
                          ?.into(headerIcon)*/
 
-//                    headerCityIcon.load("https://freepngimg.com/thumb/city/36275-3-city-hd.png")
+                    headerCityIcon.load("https://freepngimg.com/thumb/city/36275-3-city-hd.png")
 //                    icon.loadSvg("https://yastatic.net/weather/i/icons/blueye/color/svg/${weather.icon}.svg")
                 }
             }

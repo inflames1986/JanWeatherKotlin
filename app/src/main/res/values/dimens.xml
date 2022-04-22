@@ -13,4 +13,6 @@
     <dimen name="recycler_item_text_size">16sp</dimen>
     <dimen name="recycler_item_line_height">1dp</dimen>
     <dimen name="recycler_item_line_margin_end">16dp</dimen>
+    <dimen name="header_city_icon_height">70dp</dimen>
+    <dimen name="icon_height">200dp</dimen>
 </resources>

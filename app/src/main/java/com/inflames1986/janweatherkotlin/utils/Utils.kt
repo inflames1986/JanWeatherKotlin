@@ -25,5 +25,5 @@ const val LON = "lon"
 
 fun convertDtoToModel(weatherDTO: WeatherDTO): Weather {
     val fact: FactDTO = weatherDTO.factDTO
-    return (Weather(getDefaultCity(), fact.temperature, fact.feelsLike))
+    return (Weather(getDefaultCity(), fact.temperature, fact.feelsLike, fact.icon))
 }
