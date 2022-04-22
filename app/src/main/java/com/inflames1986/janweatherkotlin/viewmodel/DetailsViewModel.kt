@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import com.inflames1986.janweatherkotlin.model.entities.City
 import com.inflames1986.janweatherkotlin.model.entities.Weather
 import com.inflames1986.janweatherkotlin.model.repository.DetailsRepository
-import com.inflames1986.janweatherkotlin.model.repository.DetailsRepositoryOneOkHttpImpl
 import com.inflames1986.janweatherkotlin.model.repository.DetailsRepositoryRetrofit2Impl
 
 class DetailsViewModel(
@@ -24,11 +23,17 @@ class DetailsViewModel(
             override fun onResponse(weather: Weather) {
                 liveData.postValue(DetailsState.Success(weather))
             }
+
+            override fun onFail() {
+                //TODO HW liveData.postValue(DetailsState.Error()) ("Not yet implemented")TODO("Not yet implemented")
+            }
         })
     }
 
 
     interface Callback {
         fun onResponse(weather: Weather)
+
+        fun onFail() //TODO: Доделать в HW
     }
 }
