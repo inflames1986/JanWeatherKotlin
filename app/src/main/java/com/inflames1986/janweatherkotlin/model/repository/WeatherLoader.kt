@@ -66,7 +66,6 @@ class WeatherLoader(
                             myErr = ResponseState.Error3
                             onServerResponse.onError(myErr)
                             onServerResponseListener.onResponse(weatherDTO)
-
                         }
                     }
                 }

@@ -2,6 +2,7 @@ package com.inflames1986.janweatherkotlin.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.android.material.snackbar.Snackbar
 import com.inflames1986.janweatherkotlin.model.entities.City
 import com.inflames1986.janweatherkotlin.model.entities.Weather
 import com.inflames1986.janweatherkotlin.model.repository.DetailsRepository
@@ -25,6 +26,7 @@ class DetailsViewModel(
             }
 
             override fun onFail() {
+
                 //TODO HW liveData.postValue(DetailsState.Error()) ("Not yet implemented")TODO("Not yet implemented")
             }
         })
