@@ -23,6 +23,7 @@ import com.inflames1986.janweatherkotlin.utils.KEY_BUNDLE_WEATHER
 import com.inflames1986.janweatherkotlin.viewmodel.DetailsState
 import com.inflames1986.janweatherkotlin.viewmodel.DetailsViewModel
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_details.*
 
 
 class DetailsFragment : Fragment() {
@@ -64,10 +65,10 @@ class DetailsFragment : Fragment() {
         when (detailsState) {
             is
             DetailsState.Error -> {
-                //TODO: отобразить ошибки
+                Snackbar.make(mainView, "Ошибка", Snackbar.LENGTH_LONG).show()
             }
             DetailsState.Loading -> {
-                //TODO: отобразить загрузку
+                progressBar.visibility = View.VISIBLE
             }
             is DetailsState.Success -> {
                 val weather = detailsState.weather
