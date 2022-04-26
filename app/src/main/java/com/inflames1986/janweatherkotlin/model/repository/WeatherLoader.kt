@@ -23,15 +23,13 @@ class WeatherLoader(
     fun loadWeather(lat: Double, lon: Double) {
         val urlText =
             "$YANDEX_DOMAIN${YANDEX_PATH}lat=$lat&lon=$lon"
-        //"$YANDEX_DOMAIN_HARD_MODE${YANDEX_PATH}lat=$lat&lon=$lon"
         val uri = URL(urlText)
 
         Thread {
             val urlConnection: HttpsURLConnection =
                 (uri.openConnection() as HttpsURLConnection).apply {
-                    connectTimeout = 1000 // set под капотом
-                    //val r= readTimeout // get под капотом
-                    readTimeout = 1000 // set под капотом
+                    connectTimeout = 1000
+                    readTimeout = 1000
                     addRequestProperty(YANDEX_API_KEY, BuildConfig.WEATHER_API_KEY)
                 }
 

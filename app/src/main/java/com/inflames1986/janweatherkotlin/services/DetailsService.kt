@@ -92,7 +92,6 @@ class DetailsService(
                 KEY_ERROR_MESSAGE, myErr
             )
 
-            //sendBroadcast(message)
             LocalBroadcastManager.getInstance(this).sendBroadcast(message)
             LocalBroadcastManager.getInstance(this).sendBroadcast(messageErr)
         }

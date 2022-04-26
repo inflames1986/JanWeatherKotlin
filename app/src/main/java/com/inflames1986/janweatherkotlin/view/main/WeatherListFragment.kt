@@ -19,7 +19,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class WeatherListFragment : Fragment() {
 
-    private val viewModel: MainViewModel by viewModel() //делегирование инициализации viewModel в метод внутри Koin вместо onViewCreated
+    private val viewModel: MainViewModel by viewModel()
     private var _binding: FragmentWetherListBinding? = null
     private val binding get() = _binding!!
 

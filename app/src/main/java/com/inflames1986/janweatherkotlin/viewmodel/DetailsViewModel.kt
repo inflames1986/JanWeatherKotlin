@@ -10,8 +10,7 @@ import com.inflames1986.janweatherkotlin.model.repository.DetailsRepositoryRetro
 
 class DetailsViewModel(
     private val liveData: MutableLiveData<DetailsState> = MutableLiveData(),
-    //private val repository: DetailsRepository = DetailsRepositoryOneOkHttpImpl() // ---- > используем OkHttp
-    private val repository: DetailsRepository = DetailsRepositoryRetrofit2Impl()   // ---- > используем Retrofit2
+    private val repository: DetailsRepository = DetailsRepositoryRetrofit2Impl()
 ) : ViewModel() {
 
 

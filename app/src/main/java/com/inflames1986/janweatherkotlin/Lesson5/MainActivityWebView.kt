@@ -30,13 +30,6 @@ class MainActivityWebView : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.N)
     private fun request(urlString: String) {
-        /*try {
- // работаем здесь
-        }catch (){
-            // выводим ошибки
-        } finally {
-            httpsURLConnection.disconnect()
-        }*/
 
         val handlerCurrent1 = Handler(Looper.myLooper()!!)
         Thread {

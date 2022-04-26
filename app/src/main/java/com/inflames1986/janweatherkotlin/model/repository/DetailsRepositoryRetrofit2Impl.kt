@@ -20,7 +20,6 @@ class DetailsRepositoryRetrofit2Impl : DetailsRepository {
             addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
         }.build().create(WeatherAPI::class.java)
 
-        // val response = weatherAPI.getWeather(BuildConfig.WEATHER_API_KEY,city.lat,city.lon).execute() // ---- > синхронно
         weatherAPI.getWeather(BuildConfig.WEATHER_API_KEY, city.lat, city.lon)
             .enqueue(object : Callback<WeatherDTO> { // ---- > асинхронно
                 override fun onResponse(call: Call<WeatherDTO>, response: Response<WeatherDTO>) {
