@@ -1,7 +1,9 @@
 package com.inflames1986.janweatherkotlin.utils
 
+import com.inflames1986.janweatherkotlin.domain.room.HistoryEntity
 import com.inflames1986.janweatherkotlin.dto.FactDTO
 import com.inflames1986.janweatherkotlin.dto.WeatherDTO
+import com.inflames1986.janweatherkotlin.model.entities.City
 import com.inflames1986.janweatherkotlin.model.entities.Weather
 import com.inflames1986.janweatherkotlin.model.entities.getDefaultCity
 
@@ -26,4 +28,14 @@ const val LON = "lon"
 fun convertDtoToModel(weatherDTO: WeatherDTO): Weather {
     val fact: FactDTO = weatherDTO.factDTO
     return (Weather(getDefaultCity(), fact.temperature, fact.feelsLike, fact.icon))
+}
+
+fun convertHistoryEntityToWeather(entityList: List<HistoryEntity>): List<Weather> {
+    return entityList.map {
+        Weather(City(it.city, 0.0, 0.0), it.temperature, it.feelsLike, it.icon) // TODO HW было бы здорово научиться хранить в БД lat lon
+    }
+}
+
+fun convertWeatherToEntity(weather: Weather): HistoryEntity {
+    return HistoryEntity(0, weather.city.name, weather.temperature,weather.feelsLike, weather.icon)
 }
