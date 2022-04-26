@@ -12,7 +12,7 @@ import com.inflames1986.janweatherkotlin.viewmodel.DetailsViewModel
 import okhttp3.OkHttpClient
 import okhttp3.Request
 
-class DetailsRepositoryOneOkHttpImpl : DetailsRepository {
+class DetailsRepositoryOneOneOkHttpImpl : DetailsRepositoryOne {
     override fun getWeatherDetails(city: City, callback: DetailsViewModel.Callback) {
         val client = OkHttpClient()
         val builder = Request.Builder()

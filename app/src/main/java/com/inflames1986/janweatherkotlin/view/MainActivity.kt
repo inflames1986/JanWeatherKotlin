@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.make
+import com.inflames1986.janweatherkotlin.MyApp
 import com.inflames1986.janweatherkotlin.R
 import com.inflames1986.janweatherkotlin.view.main.WeatherListFragment
 import kotlinx.android.synthetic.main.fragment_wether_list.*

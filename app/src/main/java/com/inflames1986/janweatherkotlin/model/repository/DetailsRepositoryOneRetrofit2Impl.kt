@@ -13,7 +13,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class DetailsRepositoryRetrofit2Impl : DetailsRepository {
+class DetailsRepositoryOneRetrofit2Impl : DetailsRepositoryOne {
     override fun getWeatherDetails(city: City, callbackMy: DetailsViewModel.Callback) {
         val weatherAPI = Retrofit.Builder().apply {
             baseUrl(YANDEX_DOMAIN)
