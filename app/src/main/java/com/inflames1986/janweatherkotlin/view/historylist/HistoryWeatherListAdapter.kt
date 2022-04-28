@@ -3,9 +3,16 @@ package com.inflames1986.janweatherkotlin.view.historylist
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import coil.ImageLoader
+import coil.decode.SvgDecoder
+import coil.load
+import coil.request.ImageRequest
+import com.inflames1986.janweatherkotlin.R
 import com.inflames1986.janweatherkotlin.databinding.FragmentHistoryWeatherListRecyclerItemBinding
 import com.inflames1986.janweatherkotlin.model.entities.Weather
+import com.inflames1986.janweatherkotlin.view.details.DetailsFragment
 
 class HistoryWeatherListAdapter(
     private var data: List<Weather> = listOf()
@@ -38,6 +45,7 @@ class HistoryWeatherListAdapter(
                 tvCityName.text = weather.city.name
                 tvTemperature.text = weather.temperature.toString()
                 tvFeelsLike.text = weather.feelsLike.toString()
+                historyWeatherCityIcon.load(weather.icon)
                 //TODO HW вызвать отображение weather.icon
             }
         }

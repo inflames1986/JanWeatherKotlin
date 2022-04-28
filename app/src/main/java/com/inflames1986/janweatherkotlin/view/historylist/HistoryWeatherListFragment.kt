@@ -56,6 +56,7 @@ class HistoryWeatherListFragment : Fragment() {
 
     private fun renderData(data: AppState) {
         when (data) {
+
             is AppState.Error -> {
                 //binding.loadingLayout.visibility = View.GONE
                 Snackbar.make(binding.root, "Не получилось ${data.error}", Snackbar.LENGTH_LONG)
@@ -65,7 +66,7 @@ class HistoryWeatherListFragment : Fragment() {
                 //binding.loadingLayout.visibility = View.VISIBLE
             }
             is AppState.Success -> {
-                //binding.loadingLayout.visibility = View.GONE
+//                binding. = View.GONE
                 adapter.setData(data.weatherList)
             }
         }
