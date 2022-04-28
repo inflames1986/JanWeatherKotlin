@@ -12,7 +12,7 @@ import com.inflames1986.janweatherkotlin.model.repository.DetailsRepositoryRoomI
 class DetailsViewModel(
     private val liveData: MutableLiveData<DetailsState> = MutableLiveData(),
     private val repository: DetailsRepository = DetailsRepositoryRetrofit2Impl(),
-    private val repositoryAdd: DetailsRepositoryAdd = DetailsRepositoryRoomImpl()
+            private val repositoryAdd: DetailsRepositoryAdd = DetailsRepositoryRoomImpl()
 ) : ViewModel() {
 
 
