@@ -72,7 +72,7 @@ class WeatherListFragment : Fragment() {
             is AppState.Success -> {
                 binding.fragmentWetherListLoadingLayout.visibility = View.GONE
                 binding.fragmentWetherListRecyclerView.isVisible = true
-                adapter.setWeather(appState.weatherData)
+                adapter.setWeather(appState.weatherList)
                 binding.root.myOwnView("Success", Snackbar.LENGTH_LONG)
             }
             is AppState.Loading -> {
