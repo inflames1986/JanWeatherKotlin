@@ -1,5 +1,6 @@
 package com.inflames1986.janweatherkotlin.view.main
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.inflames1986.janweatherkotlin.R
 import com.inflames1986.janweatherkotlin.databinding.FragmentWetherListBinding
 import com.inflames1986.janweatherkotlin.model.entities.Weather
+import com.inflames1986.janweatherkotlin.utils.DataSetRus
 import com.inflames1986.janweatherkotlin.utils.KEY_BUNDLE_WEATHER
+import com.inflames1986.janweatherkotlin.utils.KEY_SP_FILE_NAME_1
+import com.inflames1986.janweatherkotlin.utils.KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN
 import com.inflames1986.janweatherkotlin.view.details.DetailsFragment
 import com.inflames1986.janweatherkotlin.viewmodel.AppState
 import com.inflames1986.janweatherkotlin.viewmodel.MainViewModel
@@ -50,7 +54,17 @@ class WeatherListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.fragmentWetherListRecyclerView.adapter = adapter
-        binding.fragmentWetherListButton.setOnClickListener { changeWeatherDataSet() }
+        binding.fragmentWetherListButton.setOnClickListener {
+            changeWeatherDataSet()
+            isDataSetRus =
+                requireActivity().getSharedPreferences(KEY_SP_FILE_NAME_1, Context.MODE_PRIVATE)
+                    .getBoolean(KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN, DataSetRus)
+            val sharedPreferences =
+                requireActivity().getSharedPreferences(KEY_SP_FILE_NAME_1, Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putBoolean(KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN, isDataSetRus)
+            editor.apply()
+        }
         val observer = Observer<AppState> { renderData(it) }
         viewModel.getLiveData().observe(viewLifecycleOwner, observer)
         viewModel.getWeatherFromLocalSourceRus()

@@ -1,5 +1,6 @@
 package com.inflames1986.janweatherkotlin.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -7,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.inflames1986.janweatherkotlin.MyApp
 import com.inflames1986.janweatherkotlin.R
 import com.inflames1986.janweatherkotlin.historylist.HistoryWeatherListFragment
+import com.inflames1986.janweatherkotlin.utils.KEY_SP_FILE_NAME_1
+import com.inflames1986.janweatherkotlin.utils.KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN
 import com.inflames1986.janweatherkotlin.view.main.WeatherListFragment
 
 class MainActivity : AppCompatActivity() {
@@ -19,9 +22,12 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.container, WeatherListFragment.newInstance())
                 .commit()
         }
+
         Thread {
             MyApp.getHistoryDao().getAll()
         }.start()
+
+
     }
 
 

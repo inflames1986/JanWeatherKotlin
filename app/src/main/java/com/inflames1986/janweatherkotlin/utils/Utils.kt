@@ -23,6 +23,9 @@ const val KEY_ERROR_MESSAGE = "kem"
 const val KEY_WAVE_ERROR_BROADCAST = "kweb"
 const val LAT = "lat"
 const val LON = "lon"
+const val KEY_SP_FILE_NAME_1 = "fileName1"
+const val KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN = "is_russian"
+const val DataSetRus = true
 
 
 fun convertDtoToModel(weatherDTO: WeatherDTO): Weather {
