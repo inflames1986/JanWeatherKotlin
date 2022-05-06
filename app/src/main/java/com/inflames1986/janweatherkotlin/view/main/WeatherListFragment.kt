@@ -53,12 +53,14 @@ class WeatherListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        isDataSetRus =
+            requireActivity().getSharedPreferences(KEY_SP_FILE_NAME_1, Context.MODE_PRIVATE)
+                .getBoolean(KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN, isDataSetRus)
+
         binding.fragmentWetherListRecyclerView.adapter = adapter
         binding.fragmentWetherListButton.setOnClickListener {
             changeWeatherDataSet()
-            isDataSetRus =
-                requireActivity().getSharedPreferences(KEY_SP_FILE_NAME_1, Context.MODE_PRIVATE)
-                    .getBoolean(KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN, DataSetRus)
             val sharedPreferences =
                 requireActivity().getSharedPreferences(KEY_SP_FILE_NAME_1, Context.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
