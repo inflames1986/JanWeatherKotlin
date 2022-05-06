@@ -20,6 +20,7 @@ import com.inflames1986.janweatherkotlin.R
 import com.inflames1986.janweatherkotlin.databinding.FragmentDetailsBinding
 import com.inflames1986.janweatherkotlin.model.entities.Weather
 import com.inflames1986.janweatherkotlin.utils.KEY_BUNDLE_WEATHER
+import com.inflames1986.janweatherkotlin.utils.loadSvg
 import com.inflames1986.janweatherkotlin.viewmodel.DetailsState
 import com.inflames1986.janweatherkotlin.viewmodel.DetailsViewModel
 import com.squareup.picasso.Picasso
@@ -88,19 +89,6 @@ class DetailsFragment : Fragment() {
                 }
             }
         }
-    }
-
-    fun ImageView.loadSvg(url:String){
-        val imageLoader = ImageLoader.Builder(this.context)
-            .componentRegistry { add(SvgDecoder(this@loadSvg.context)) }
-            .build()
-        val request = ImageRequest.Builder(this.context)
-            .crossfade(true)
-            .crossfade(500)
-            .data(url)
-            .target(this)
-            .build()
-        imageLoader.enqueue(request)
     }
 
     companion object {

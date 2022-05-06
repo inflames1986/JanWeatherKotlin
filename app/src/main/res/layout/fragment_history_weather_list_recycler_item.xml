@@ -13,27 +13,28 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/history_weather_city_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/padding_and_db_image_size"
+            android:layout_height="@dimen/padding_and_db_image_size"
             android:scaleType="centerCrop"
             tools:src="@drawable/ic_baseline_blur_circular_24" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvCityName"
+            android:paddingStart="@dimen/padding_and_db_image_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="25sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvTemperature"
-            android:paddingStart="20dp"
+            android:paddingStart="@dimen/padding_and_db_image_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="25sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvFeelsLike"
-            android:paddingStart="20dp"
+            android:paddingStart="@dimen/padding_and_db_image_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="25sp" />

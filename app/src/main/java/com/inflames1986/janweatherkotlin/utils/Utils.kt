@@ -1,5 +1,9 @@
 package com.inflames1986.janweatherkotlin.utils
 
+import android.widget.ImageView
+import coil.ImageLoader
+import coil.decode.SvgDecoder
+import coil.request.ImageRequest
 import com.inflames1986.janweatherkotlin.domain.room.HistoryEntity
 import com.inflames1986.janweatherkotlin.dto.FactDTO
 import com.inflames1986.janweatherkotlin.dto.WeatherDTO
@@ -41,4 +45,17 @@ fun convertHistoryEntityToWeather(entityList: List<HistoryEntity>): List<Weather
 
 fun convertWeatherToEntity(weather: Weather): HistoryEntity {
     return HistoryEntity(0, weather.city.name, weather.temperature,weather.feelsLike, weather.icon)
+}
+
+fun ImageView.loadSvg(url:String){
+    val imageLoader = ImageLoader.Builder(this.context)
+        .componentRegistry { add(SvgDecoder(this@loadSvg.context)) }
+        .build()
+    val request = ImageRequest.Builder(this.context)
+        .crossfade(true)
+        .crossfade(500)
+        .data(url)
+        .target(this)
+        .build()
+    imageLoader.enqueue(request)
 }
