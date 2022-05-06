@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.inflames1986.janweatherkotlin.R
 import com.inflames1986.janweatherkotlin.databinding.FragmentWorkWithContentProviderBinding
 
 
@@ -60,12 +61,12 @@ class WorkWithContentProviderFragment : Fragment() {
 
     private fun explain() {
         AlertDialog.Builder(requireContext())
-            .setTitle("Доступ к контактам")
-            .setMessage("Объяснение бла бла бла бла")
-            .setPositiveButton("Предоставить доступ") { _, _ ->
+            .setTitle(getString(R.string.ACCESS_MESSAGE_TITLE))
+            .setMessage(getString(R.string.ACCESS_MESSAGE_BODY))
+            .setPositiveButton(getString(R.string.ACCESS_GRANTED_BTN)) { _, _ ->
                 mRequestPermission()
             }
-            .setNegativeButton("Не надо") { dialog, _ -> dialog.dismiss() }
+            .setNegativeButton(getString(R.string.ACCESS_NOT_GRANTED_BTN)) { dialog, _ -> dialog.dismiss() }
             .create()
             .show()
     }
