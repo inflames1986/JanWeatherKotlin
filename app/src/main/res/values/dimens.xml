@@ -17,4 +17,5 @@
     <dimen name="icon_height">120dp</dimen>
     <dimen name="padding_default">16dp</dimen>
     <dimen name="padding_and_db_image_size">20dp</dimen>
+    <dimen name="margin_15_dp">15dp</dimen>
 </resources>
