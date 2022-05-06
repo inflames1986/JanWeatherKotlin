@@ -19,10 +19,11 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.container, WeatherListFragment.newInstance())
                 .commit()
         }
-
-
-        MyApp.getHistoryDao().getAll()
+        Thread {
+            MyApp.getHistoryDao().getAll()
+        }.start()
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)

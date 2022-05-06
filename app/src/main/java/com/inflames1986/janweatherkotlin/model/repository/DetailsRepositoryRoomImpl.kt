@@ -24,11 +24,15 @@ class DetailsRepositoryRoomImpl : DetailsRepository, DetailsRepositoryAll,
     }
 
     override fun getAllWeatherDetails(callback: HistoryViewModel.CallbackForAll) {
+        Thread{
         callback.onResponse(convertHistoryEntityToWeather(MyApp.getHistoryDao().getAll()))
+        }.start()
     }
 
     override fun addWeather(weather: Weather) {
+        Thread{
         MyApp.getHistoryDao().insert(convertWeatherToEntity(weather))
+        }.start()
     }
 }
 
