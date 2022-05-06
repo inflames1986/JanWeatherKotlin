@@ -1,6 +1,7 @@
-package com.inflames1986.Lesson9
+package com.inflames1986.lesson9
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -40,11 +41,9 @@ class WorkWithContentProviderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkPermission()
-        //getContacts()
     }
 
     private fun checkPermission() {
-        // а есть ли разрешение?
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.READ_CONTACTS
@@ -52,7 +51,6 @@ class WorkWithContentProviderFragment : Fragment() {
         ) {
             getContacts()
         } else if (shouldShowRequestPermissionRationale(Manifest.permission.READ_CONTACTS)) {
-            // важно написать убедительную просьбу
             explain()
         } else {
             mRequestPermission()
@@ -74,6 +72,7 @@ class WorkWithContentProviderFragment : Fragment() {
     private val REQUEST_CODE = 999
     private fun mRequestPermission() {
         requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS), REQUEST_CODE)
+
     }
 
     override fun onRequestPermissionsResult(
@@ -95,8 +94,10 @@ class WorkWithContentProviderFragment : Fragment() {
         }
     }
 
+    @SuppressLint("Range")
     private fun getContacts() {
         val contentResolver: ContentResolver = requireContext().contentResolver
+
 
         val cursor = contentResolver.query(
             ContactsContract.Contacts.CONTENT_URI,
@@ -111,13 +112,18 @@ class WorkWithContentProviderFragment : Fragment() {
                     val columnNameIndex =
                         cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
                     val name: String = cursor.getString(columnNameIndex)
+                    val phoneNumber: String = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+
                     binding.containerForContacts.addView(TextView(requireContext()).apply {
                         textSize = 30f
-                        text = name
+                        text = "($name $phoneNumber)"
                     })
                 }
             }
         }
+        if (cursor != null) {
+            cursor.close()
+        };
     }
 
     companion object {

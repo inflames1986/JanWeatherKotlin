@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.inflames1986.Lesson9.WorkWithContentProviderFragment
+import com.inflames1986.lesson9.WorkWithContentProviderFragment
 import com.inflames1986.janweatherkotlin.MyApp
 import com.inflames1986.janweatherkotlin.R
 import com.inflames1986.janweatherkotlin.historylist.HistoryWeatherListFragment
