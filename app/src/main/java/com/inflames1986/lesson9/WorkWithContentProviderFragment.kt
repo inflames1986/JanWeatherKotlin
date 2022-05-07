@@ -3,7 +3,9 @@ package com.inflames1986.lesson9
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentResolver
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.LayoutInflater
@@ -57,6 +59,9 @@ class WorkWithContentProviderFragment : Fragment() {
         }
     }
 
+    val REQUEST_CODE_CONTACTS = 999
+    val REQUEST_CODE_CALL = 998
+
     private fun explain() {
         AlertDialog.Builder(requireContext())
             .setTitle(getString(R.string.ACCESS_MESSAGE_TITLE))
@@ -69,10 +74,9 @@ class WorkWithContentProviderFragment : Fragment() {
             .show()
     }
 
-    private val REQUEST_CODE = 999
     private fun mRequestPermission() {
-        requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS), REQUEST_CODE)
-
+        requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS), REQUEST_CODE_CONTACTS)
+        requestPermissions(arrayOf(Manifest.permission.CALL_PHONE), REQUEST_CODE_CALL)
     }
 
     override fun onRequestPermissionsResult(
@@ -80,7 +84,7 @@ class WorkWithContentProviderFragment : Fragment() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if (requestCode == REQUEST_CODE) {
+        if (requestCode == REQUEST_CODE_CONTACTS) {
 
             for (i in permissions.indices) {
                 if (permissions[i] == Manifest.permission.READ_CONTACTS && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
@@ -96,34 +100,69 @@ class WorkWithContentProviderFragment : Fragment() {
 
     @SuppressLint("Range")
     private fun getContacts() {
-        val contentResolver: ContentResolver = requireContext().contentResolver
-
-
-        val cursor = contentResolver.query(
-            ContactsContract.Contacts.CONTENT_URI,
-            null,
-            null,
-            null,
-            ContactsContract.Contacts.DISPLAY_NAME + " ASC"
-        ) // или DESC
-        cursor?.let {
-            for (i in 0 until it.count) {
-                if (cursor.moveToPosition(i)) {
-                    val columnNameIndex =
-                        cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
-                    val name: String = cursor.getString(columnNameIndex)
-                    val phoneNumber: String = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
-
-                    binding.containerForContacts.addView(TextView(requireContext()).apply {
-                        textSize = 30f
-                        text = "($name $phoneNumber)"
-                    })
+        context?.let { it ->
+            val contentResolver = it.contentResolver
+            val cursor = contentResolver.query(
+                ContactsContract.Contacts.CONTENT_URI,
+                null,
+                null,
+                null,
+                ContactsContract.Contacts.DISPLAY_NAME + " ASC"
+            )
+            cursor?.let { cursor ->
+                for (i in 0 until cursor.count) {
+                    cursor.moveToPosition(i)
+                    val name =
+                        cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
+                    val contactId =
+                        cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))
+                    val number = getNumberFromID(contentResolver, contactId)
+                    addView(name, number)
                 }
             }
+            cursor?.close()
         }
-        if (cursor != null) {
-            cursor.close()
-        };
+    }
+
+    private fun getNumberFromID(contRes: ContentResolver, contactId: String): String {
+        val phones = contRes.query(
+            ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
+            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId, null, null
+        )
+        var number: String = "none"
+        phones?.let { cursor ->
+            while (cursor.moveToNext()) {
+                number =
+                    cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+            }
+        }
+        phones?.close()
+        return number
+    }
+
+    private fun addView(name: String, number: String) {
+        binding.containerForContacts.addView(TextView(requireContext()).apply {
+            text = "$name:$number"
+            textSize = 30f
+            setOnClickListener {
+                numberCurrent = number
+                makeCall()
+            }
+        })
+    }
+
+    private var numberCurrent: String = "none"
+    private fun makeCall() {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.CALL_PHONE
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:$numberCurrent"))
+            startActivity(intent)
+        } else {
+            requestPermissions(arrayOf(Manifest.permission.CALL_PHONE), REQUEST_CODE_CALL)
+        }
     }
 
     companion object {
