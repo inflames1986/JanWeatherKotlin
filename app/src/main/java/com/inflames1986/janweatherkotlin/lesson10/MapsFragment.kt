@@ -14,6 +14,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.inflames1986.janweatherkotlin.R
+import com.inflames1986.janweatherkotlin.databinding.FragmentMapsMainBinding
 
 class MapsFragment : Fragment() {
 
@@ -27,17 +28,28 @@ class MapsFragment : Fragment() {
          * install it inside the SupportMapFragment. This method will only be triggered once the
          * user has installed Google Play services and returned to the app.
          */
-        val sydney = LatLng(-34.0, 151.0)
-        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        val sevastopol = LatLng(44.55, 33.50)
+        googleMap.addMarker(MarkerOptions().position(sevastopol).title("Marker in Sevastopol"))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sevastopol))
+    }
+
+    private var _binding: FragmentMapsMainBinding? = null
+    private val binding: FragmentMapsMainBinding
+        get() {
+            return _binding!!
+        }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_maps, container, false)
+    ): View {
+        _binding = FragmentMapsMainBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
