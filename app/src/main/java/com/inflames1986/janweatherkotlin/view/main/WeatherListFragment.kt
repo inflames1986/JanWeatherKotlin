@@ -23,35 +23,34 @@ import com.inflames1986.janweatherkotlin.R
 import com.inflames1986.janweatherkotlin.databinding.FragmentWetherListBinding
 import com.inflames1986.janweatherkotlin.model.entities.City
 import com.inflames1986.janweatherkotlin.model.entities.Weather
-import com.inflames1986.janweatherkotlin.utils.DataSetRus
 import com.inflames1986.janweatherkotlin.utils.KEY_BUNDLE_WEATHER
-import com.inflames1986.janweatherkotlin.utils.KEY_SP_FILE_NAME_1
-import com.inflames1986.janweatherkotlin.utils.KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN
 import com.inflames1986.janweatherkotlin.view.details.DetailsFragment
 import com.inflames1986.janweatherkotlin.viewmodel.AppState
 import com.inflames1986.janweatherkotlin.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
-class WeatherListFragment : Fragment() {
+class WeatherListFragment : Fragment(), OnItemListClickListener {
 
     private val viewModel: MainViewModel by viewModel()
     private var _binding: FragmentWetherListBinding? = null
     private val binding get() = _binding!!
 
-    private val adapter = WeatherListFragmentAdapter(object : OnItemListClickListener {
-        override fun onItemListClick(weather: Weather) {
-            val manager = activity?.supportFragmentManager
-            manager?.let {
-                val bundle = Bundle()
-                bundle.putParcelable(KEY_BUNDLE_WEATHER, weather)
-                manager.beginTransaction()
-                    .replace(R.id.container, DetailsFragment.newInstance(bundle))
-                    .addToBackStack("")
-                    .commit()
-            }
+
+    private val adapter = WeatherListFragmentAdapter(this)
+
+    override fun onItemListClick(weather: Weather) {
+        val manager = activity?.supportFragmentManager
+        manager?.let {
+            val bundle = Bundle()
+            bundle.putParcelable(KEY_BUNDLE_WEATHER, weather)
+            manager.beginTransaction()
+                .replace(R.id.container, DetailsFragment.newInstance(bundle))
+                .addToBackStack("")
+                .commit()
         }
-    })
+    }
+
     private var isDataSetRus: Boolean = true
 
     override fun onCreateView(
@@ -66,21 +65,14 @@ class WeatherListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        isDataSetRus =
-            requireActivity().getSharedPreferences(KEY_SP_FILE_NAME_1, Context.MODE_PRIVATE)
-                .getBoolean(KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN, isDataSetRus)
+        isDataSetRus = true
 
         binding.fragmentWetherListRecyclerView.adapter = adapter
         binding.fragmentWetherListButton.setOnClickListener {
 
-            changeWeatherDataSet()
             setupFabLocation()
+            changeWeatherDataSet()
 
-            val sharedPreferences =
-                requireActivity().getSharedPreferences(KEY_SP_FILE_NAME_1, Context.MODE_PRIVATE)
-            val editor = sharedPreferences.edit()
-            editor.putBoolean(KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN, isDataSetRus)
-            editor.apply()
         }
         val observer = Observer<AppState> { renderData(it) }
         viewModel.getLiveData().observe(viewLifecycleOwner, observer)
@@ -102,7 +94,6 @@ class WeatherListFragment : Fragment() {
         ) {
             getLocation()
         } else if (shouldShowRequestPermissionRationale(Manifest.permission.READ_CONTACTS)) {
-            // важно написать убедительную просьбу
             explain()
         } else {
             mRequestPermission()
@@ -144,62 +135,43 @@ class WeatherListFragment : Fragment() {
         }
     }
 
-    fun getAddressByLocation(location: Location){
-        //val geocoder = Geocoder(requireContext())
+    fun getAddressByLocation(location: Location) {
         val geocoder = Geocoder(requireContext(), Locale.getDefault())
         val timeStump = System.currentTimeMillis()
-        Thread{
-            val addressText = geocoder.getFromLocation(location.latitude,location.longitude,1000000)[0].getAddressLine(0)
+        Thread {
+            val addressText =
+                geocoder.getFromLocation(location.latitude, location.longitude, 1000000)[0]
+                    .getAddressLine(0)
             requireActivity().runOnUiThread {
-                showAddressDialog(addressText,location)
+                showAddressDialog(addressText, location)
             }
         }.start()
-        Log.d("@@@"," прошло ${System.currentTimeMillis() - timeStump}")
+        Log.d("@@@", " прошло ${System.currentTimeMillis() - timeStump}")
     }
 
     private val locationListenerTime = object : LocationListener {
         override fun onLocationChanged(location: Location) {
-            Log.d("@@@",location.toString())
+            Log.d("@@@", location.toString())
             getAddressByLocation(location)
         }
-        override fun onProviderDisabled(provider: String) {
-            super.onProviderDisabled(provider)
-        }
-        override fun onProviderEnabled(provider: String) {
-            super.onProviderEnabled(provider)
-        }
-
     }
 
     private val locationListenerDistance = object : LocationListener {
         override fun onLocationChanged(location: Location) {
-            Log.d("@@@",location.toString())
+            Log.d("@@@", location.toString())
             getAddressByLocation(location)
         }
-        override fun onProviderDisabled(provider: String) {
-            super.onProviderDisabled(provider)
-        }
-        override fun onProviderEnabled(provider: String) {
-            super.onProviderEnabled(provider)
-        }
-
     }
 
     @SuppressLint("MissingPermission")
-    private fun getLocation(){
+    private fun getLocation() {
         context?.let {
             val locationManager = it.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-            if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
-                val providerGPS = locationManager.getProvider(LocationManager.GPS_PROVIDER) // можно использовать BestProvider
-                /*providerGPS?.let{
-                    locationManager.requestLocationUpdates(
-                        LocationManager.GPS_PROVIDER,
-                        10000L,
-                        0f,
-                        locationListenerTime
-                    )
-                }*/
-                providerGPS?.let{
+            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                val providerGPS =
+                    locationManager.getProvider(LocationManager.GPS_PROVIDER) // можно использовать BestProvider
+
+                providerGPS?.let {
                     locationManager.requestLocationUpdates(
                         LocationManager.GPS_PROVIDER,
                         0,
@@ -217,7 +189,7 @@ class WeatherListFragment : Fragment() {
                 .setTitle(getString(R.string.dialog_address_title))
                 .setMessage(address)
                 .setPositiveButton(getString(R.string.dialog_address_get_weather)) { _, _ ->
-                    //onItemClick(
+                    onItemListClick(
                         Weather(
                             City(
                                 address,
@@ -225,7 +197,7 @@ class WeatherListFragment : Fragment() {
                                 location.longitude
                             )
                         )
-                    //)
+                    )
                 }
                 .setNegativeButton(getString(R.string.dialog_button_close)) { dialog, _ -> dialog.dismiss() }
                 .create()
@@ -291,6 +263,4 @@ class WeatherListFragment : Fragment() {
     }
 }
 
-interface OnItemListClickListener {
-    fun onItemListClick(weather: Weather)
-}
+
