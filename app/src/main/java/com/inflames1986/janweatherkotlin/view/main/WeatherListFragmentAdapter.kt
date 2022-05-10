@@ -25,7 +25,7 @@ class WeatherListFragmentAdapter(private var onItemViewClickListener: OnItemList
     ): MainViewHolder {
         return MainViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.fragment_wether_list_recycler_item, parent, false) as View
+                .inflate(R.layout.fragment_weather_list_recycler_item, parent, false) as View
         )
     }
 

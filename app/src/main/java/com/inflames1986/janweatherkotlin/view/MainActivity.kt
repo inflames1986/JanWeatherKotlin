@@ -8,6 +8,7 @@ import com.inflames1986.lesson9.WorkWithContentProviderFragment
 import com.inflames1986.janweatherkotlin.MyApp
 import com.inflames1986.janweatherkotlin.R
 import com.inflames1986.janweatherkotlin.historylist.HistoryWeatherListFragment
+import com.inflames1986.janweatherkotlin.lesson10.MapsFragment
 import com.inflames1986.janweatherkotlin.view.main.WeatherListFragment
 
 class MainActivity : AppCompatActivity() {
@@ -45,6 +46,11 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction()
                     .add(R.id.container, WorkWithContentProviderFragment.newInstance())
                     .addToBackStack("").commit()
+            }
+
+            R.id.action_menu_google_maps->{
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.container, MapsFragment()).addToBackStack("").commit()
             }
         }
         return super.onOptionsItemSelected(item)

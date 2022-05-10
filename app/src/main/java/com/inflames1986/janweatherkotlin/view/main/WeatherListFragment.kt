@@ -20,7 +20,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.inflames1986.janweatherkotlin.R
-import com.inflames1986.janweatherkotlin.databinding.FragmentWetherListBinding
+import com.inflames1986.janweatherkotlin.databinding.FragmentWeatherListBinding
 import com.inflames1986.janweatherkotlin.model.entities.City
 import com.inflames1986.janweatherkotlin.model.entities.Weather
 import com.inflames1986.janweatherkotlin.utils.KEY_BUNDLE_WEATHER
@@ -33,7 +33,7 @@ import java.util.*
 class WeatherListFragment : Fragment(), OnItemListClickListener {
 
     private val viewModel: MainViewModel by viewModel()
-    private var _binding: FragmentWetherListBinding? = null
+    private var _binding: FragmentWeatherListBinding? = null
     private val binding get() = _binding!!
 
 
@@ -57,10 +57,9 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentWetherListBinding.inflate(inflater, container, false)
+        _binding = FragmentWeatherListBinding.inflate(inflater, container, false)
         return binding.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -68,7 +67,7 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
         isDataSetRus = true
 
         binding.fragmentWetherListRecyclerView.adapter = adapter
-        binding.fragmentWetherListButton.setOnClickListener {
+        binding.fragmentWeatherListButton.setOnClickListener {
 
             setupFabLocation()
             changeWeatherDataSet()
@@ -86,7 +85,6 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
     }
 
     private fun checkPermission() {
-        // а есть ли разрешение?
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -209,10 +207,10 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
     private fun changeWeatherDataSet() {
         if (isDataSetRus) {
             viewModel.getWeatherFromLocalSourceWorld()
-            binding.fragmentWetherListButton.setImageResource(R.drawable.ic_baseline_blur_circular_24)
+            binding.fragmentWeatherListButton.setImageResource(R.drawable.ic_baseline_blur_circular_24)
         } else {
             viewModel.getWeatherFromLocalSourceRus()
-            binding.fragmentWetherListButton.setImageResource(R.drawable.ic_baseline_blur_circular_24)
+            binding.fragmentWeatherListButton.setImageResource(R.drawable.ic_baseline_blur_circular_24)
         }
         isDataSetRus = !isDataSetRus
     }
@@ -220,20 +218,20 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
     private fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Success -> {
-                binding.fragmentWetherListLoadingLayout.visibility = View.GONE
+                binding.fragmentWeatherListLoadingLayout.visibility = View.GONE
                 binding.fragmentWetherListRecyclerView.isVisible = true
                 adapter.setWeather(appState.weatherList)
                 binding.root.myOwnView("Success", Snackbar.LENGTH_LONG)
             }
             is AppState.Loading -> {
-                binding.fragmentWetherListLoadingLayout.visibility = View.VISIBLE
+                binding.fragmentWeatherListLoadingLayout.visibility = View.VISIBLE
                 binding.fragmentWetherListRecyclerView.isVisible = false
             }
             is AppState.Error -> {
-                binding.fragmentWetherListLoadingLayout.visibility = View.GONE
+                binding.fragmentWeatherListLoadingLayout.visibility = View.GONE
                 Snackbar
                     .make(
-                        binding.fragmentWetherListButton,
+                        binding.fragmentWeatherListButton,
                         getString(R.string.error),
                         Snackbar.LENGTH_LONG
                     )
