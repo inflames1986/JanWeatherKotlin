@@ -1,9 +1,13 @@
 package com.inflames1986.janweatherkotlin.view
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.inflames1986.lesson9.WorkWithContentProviderFragment
 import com.inflames1986.janweatherkotlin.MyApp
 import com.inflames1986.janweatherkotlin.R
@@ -25,6 +29,16 @@ class MainActivity : AppCompatActivity() {
         Thread {
             MyApp.getHistoryDao().getAll()
         }.start()
+
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("mylogs_push", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+            val token = task.result
+            Log.d("mylogs_push", "$token")
+        })
     }
 
 
