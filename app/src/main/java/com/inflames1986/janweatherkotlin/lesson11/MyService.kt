@@ -14,7 +14,7 @@ import com.inflames1986.janweatherkotlin.view.MainActivity
 
 class MyService : FirebaseMessagingService() {
 
-    // TODO прикрепить к ДЗ Server key General->Project settings->Cloud Messaging
+    // SERVER KEY: AAAAYf2CYYQ:APA91bHtnXNQyfOfpY9nk4UaaRb8-Jmo9JVbRVI9rI6dnjXvs8txUU75lj11ney9Mx4gr51fqKQ_9SRDsGFKi9_yn3Sirg1JWxAnF5pZmqy0Bs5VUTL0HAimbXZpHUAJ-wn86uzIOfql
 
     override fun onMessageReceived(message: RemoteMessage) {
         if (!message.data.isNullOrEmpty()) {
@@ -25,7 +25,6 @@ class MyService : FirebaseMessagingService() {
             }
         }
     }
-
 
     companion object {
         private const val NOTIFICATION_ID_LOW = 1
@@ -73,5 +72,4 @@ class MyService : FirebaseMessagingService() {
         notificationManager.notify(NOTIFICATION_ID_LOW, notificationBuilderHigh.build())
 
     }
-
 }
