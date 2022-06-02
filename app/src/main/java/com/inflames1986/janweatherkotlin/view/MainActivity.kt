@@ -1,12 +1,19 @@
 package com.inflames1986.janweatherkotlin.view
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.snackbar.Snackbar.make
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
+import com.inflames1986.lesson9.WorkWithContentProviderFragment
+import com.inflames1986.janweatherkotlin.MyApp
 import com.inflames1986.janweatherkotlin.R
+import com.inflames1986.janweatherkotlin.historylist.HistoryWeatherListFragment
+import com.inflames1986.janweatherkotlin.lesson10.MapsFragment
 import com.inflames1986.janweatherkotlin.view.main.WeatherListFragment
-import kotlinx.android.synthetic.main.fragment_wether_list.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,7 +23,50 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, WeatherListFragment.newInstance())
-                .commitNow()
+                .commit()
         }
+
+        Thread {
+            MyApp.getHistoryDao().getAll()
+        }.start()
+
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("mylogs_push", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+            val token = task.result
+            Log.d("mylogs_push", "$token")
+        })
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+
+            R.id.action_history -> {
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.container, HistoryWeatherListFragment.newInstance())
+                    .addToBackStack("").commit()
+            }
+
+            R.id.action_work_with_content_provider -> {
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.container, WorkWithContentProviderFragment.newInstance())
+                    .addToBackStack("").commit()
+            }
+
+            R.id.action_menu_google_maps->{
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.container, MapsFragment()).addToBackStack("").commit()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

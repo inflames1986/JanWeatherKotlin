@@ -1,7 +1,13 @@
 package com.inflames1986.janweatherkotlin.utils
 
+import android.widget.ImageView
+import coil.ImageLoader
+import coil.decode.SvgDecoder
+import coil.request.ImageRequest
+import com.inflames1986.janweatherkotlin.domain.room.HistoryEntity
 import com.inflames1986.janweatherkotlin.dto.FactDTO
 import com.inflames1986.janweatherkotlin.dto.WeatherDTO
+import com.inflames1986.janweatherkotlin.model.entities.City
 import com.inflames1986.janweatherkotlin.model.entities.Weather
 import com.inflames1986.janweatherkotlin.model.entities.getDefaultCity
 
@@ -21,9 +27,35 @@ const val KEY_ERROR_MESSAGE = "kem"
 const val KEY_WAVE_ERROR_BROADCAST = "kweb"
 const val LAT = "lat"
 const val LON = "lon"
+const val KEY_SP_FILE_NAME_1 = "fileName1"
+const val KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN = "is_russian"
+const val DataSetRus = true
 
 
 fun convertDtoToModel(weatherDTO: WeatherDTO): Weather {
     val fact: FactDTO = weatherDTO.factDTO
     return (Weather(getDefaultCity(), fact.temperature, fact.feelsLike, fact.icon))
+}
+
+fun convertHistoryEntityToWeather(entityList: List<HistoryEntity>): List<Weather> {
+    return entityList.map {
+        Weather(City(it.city, 0.0, 0.0), it.temperature, it.feelsLike, it.icon)
+    }
+}
+
+fun convertWeatherToEntity(weather: Weather): HistoryEntity {
+    return HistoryEntity(0, weather.city.name, weather.temperature,weather.feelsLike, weather.icon)
+}
+
+fun ImageView.loadSvg(url:String){
+    val imageLoader = ImageLoader.Builder(this.context)
+        .componentRegistry { add(SvgDecoder(this@loadSvg.context)) }
+        .build()
+    val request = ImageRequest.Builder(this.context)
+        .crossfade(true)
+        .crossfade(500)
+        .data(url)
+        .target(this)
+        .build()
+    imageLoader.enqueue(request)
 }

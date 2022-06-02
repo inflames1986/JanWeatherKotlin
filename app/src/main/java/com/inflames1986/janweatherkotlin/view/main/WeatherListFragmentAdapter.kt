@@ -12,10 +12,10 @@ import com.inflames1986.janweatherkotlin.model.entities.Weather
 class WeatherListFragmentAdapter(private var onItemViewClickListener: OnItemListClickListener?) :
     RecyclerView.Adapter<WeatherListFragmentAdapter.MainViewHolder>() {
 
-    private var weatherData: List<Weather> = listOf()
+    private var weatherList: List<Weather> = listOf()
 
     fun setWeather(data: List<Weather>) {
-        weatherData = data
+        weatherList = data
         notifyDataSetChanged()
     }
 
@@ -25,16 +25,16 @@ class WeatherListFragmentAdapter(private var onItemViewClickListener: OnItemList
     ): MainViewHolder {
         return MainViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.fragment_wether_list_recycler_item, parent, false) as View
+                .inflate(R.layout.fragment_weather_list_recycler_item, parent, false) as View
         )
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        holder.bind(weatherData[position])
+        holder.bind(weatherList[position])
     }
 
     override fun getItemCount(): Int {
-        return weatherData.size
+        return weatherList.size
     }
 
     inner class MainViewHolder(view: View) : RecyclerView.ViewHolder(view) {
