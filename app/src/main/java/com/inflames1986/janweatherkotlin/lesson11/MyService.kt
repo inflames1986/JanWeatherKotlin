@@ -14,7 +14,6 @@ import com.inflames1986.janweatherkotlin.view.MainActivity
 
 class MyService : FirebaseMessagingService() {
 
-    // SERVER KEY: AAAAYf2CYYQ:APA91bHtnXNQyfOfpY9nk4UaaRb8-Jmo9JVbRVI9rI6dnjXvs8txUU75lj11ney9Mx4gr51fqKQ_9SRDsGFKi9_yn3Sirg1JWxAnF5pZmqy0Bs5VUTL0HAimbXZpHUAJ-wn86uzIOfql
 
     override fun onMessageReceived(message: RemoteMessage) {
         if (!message.data.isNullOrEmpty()) {

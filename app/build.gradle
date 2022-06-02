@@ -21,8 +21,9 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            multiDexEnabled true
         }
     }
     compileOptions {
@@ -35,6 +36,24 @@ android {
 
     buildFeatures {
         viewBinding true
+    }
+
+
+    flavorDimensions 'distribution', 'age'
+
+    productFlavors {
+        free {
+            dimension 'distribution'
+        }
+        paid {
+            dimension 'distribution'
+        }
+        kids {
+            dimension 'age'
+        }
+        adult {
+            dimension 'age'
+        }
     }
 
     buildTypes.each {
