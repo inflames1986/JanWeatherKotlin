@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Jan Free Adult</string>
+    <string name="cityCoordinates">Координаты: </string>
+    <string name="set">Set</string>
+    <string name="city_coordinates">Координаты:</string>
+    <string name="error">Error</string>
+    <string name="reload">Reload</string>
+    <string name="https_geekbrains_ru">https://geekbrains.ru/</string>
+    <string name="bnt_ok">OK</string>
+    <string name="access">Успешно</string>
+    <string name="temperature">Температура:</string>
+    <string name="feelsLikeLabelText">Чувствуется как:</string>
+    <string name="history_btn">history</string>
+    <string name="work_with_content_provider">WWCP</string>
+    <string name="ACCESS_MESSAGE_BODY">Предоставьте доступ к контактам, пожалуйста, по хорошему!</string>
+    <string name="ACCESS_MESSAGE_TITLE">Доступ к контактам</string>
+    <string name="ACCESS_GRANTED_BTN">Предоставить доступ</string>
+    <string name="ACCESS_NOT_GRANTED_BTN">Не надо</string>
+
+
+    <!--    Рационализация-->
+    <string name="dialog_button_close">Закрыть</string>
+    <string name="dialog_title_no_gps">Доступ к геолокации закрыт</string>
+    <string name="dialog_message_no_gps">Разрешите доступ к геолокации, если хотите узнать погоду текущего места</string>
+    <string name="dialog_title_gps_turned_off">GPS отключён</string>
+    <string name="dialog_message_last_location_unknown">Местонахождение неизвестно. Включите GPS, если хотите получить погоду по текущему адресу</string>
+    <string name="dialog_message_last_known_location">Показана последняя известная локация. Включите GPS, если хотите обновить местонахождение</string>
+    <string name="dialog_rationale_title">Доступ к геолокации</string>
+    <string name="dialog_rationale_message">Объяснение</string>
+    <string name="dialog_rationale_give_access">Предоставить доступ</string>
+    <string name="dialog_rationale_decline">Не надо</string>
+    <string name="dialog_address_title">Ваш адрес</string>
+    <string name="dialog_address_get_weather">Узнать погоду</string>
+    <string name="button_search_map">Поиск</string>
+    <string name="default_address">Севастополь, площадь Нахимова</string>
+    <string name="search_address_hint">введите адрес</string>
+</resources>
